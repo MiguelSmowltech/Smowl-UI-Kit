@@ -268,7 +268,7 @@ template.innerHTML = `
   }
 
   .gallery__thumb:hover { border-color: #0061F4; opacity: 0.85; }
-  .gallery__thumb:focus-visible { outline: 2px solid var(--color-brand-500); outline-offset: 2px; }
+  .gallery__thumb:focus-visible { outline: 2px solid var(--color-brand-500); outline-offset: -3px; }
   .gallery__thumb--active { border-color: #0061F4; opacity: 1; }
   .gallery__thumb--error { border: 4px solid var(--color-danger-500); }
 
