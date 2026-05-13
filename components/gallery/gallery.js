@@ -278,16 +278,14 @@ class GalleryComponent extends HTMLElement {
     }
     this._mainImage.style.display = 'block';
     this._mainImage.src = d.src || '';
-    this._mainImage.alt = d.alt || '';
+    this._mainImage.alt = d.alt || 'Imagen ' + (this._activeIndex + 1);
     this._mainImage.setAttribute('aria-describedby',
       this._showCaption && d.title ? 'caption' : '');
     this._mainImage.classList.toggle('gallery__image--error', !!d.error);
     this._mainImage.classList.toggle('gallery__image--incidencia', !!d.incidencia);
 
     // Anunciamos el número de slide para lectores de pantalla
-    const slideLabel = 'Slide ' + (this._activeIndex + 1)
-      + ' of ' + this._images.length
-      + (d.title ? ': ' + d.title : '');
+    const slideLabel = 'Slide ' + (this._activeIndex + 1) + ' of ' + this._images.length;
     this.$('galleryMain').setAttribute('aria-label', slideLabel);
 
     this._renderThumbnails();
@@ -310,7 +308,7 @@ class GalleryComponent extends HTMLElement {
       btn.setAttribute('aria-current', i === this._activeIndex ? 'true' : 'false');
       btn.setAttribute('aria-controls', 'galleryMain');
       btn.setAttribute('aria-label',
-        item.alt + (item.title ? ': ' + item.title : ''));
+        item.alt || 'Imagen ' + (i + 1));
       btn.tabIndex = i === this._activeIndex ? 0 : -1;
       btn.addEventListener('click', () => this._goTo(i));
       btn.addEventListener('keydown', e => {
