@@ -34,7 +34,8 @@ Each component is a **vanilla Custom Element** with:
 ## Components
 
 | Component | Tag | Description | Status |
-|---|---|---|---|
+|---|---|---|---|---|
+| [Checkbox](components/checkbox/) | `<checkbox-component>` | Custom checkbox with label, states, keyboard nav | Active |
 | [Gallery](components/gallery/) | `<gallery-component>` | Image gallery with thumbnails, fullscreen, keyboard nav | Active |
 
 ## Usage
