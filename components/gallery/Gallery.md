@@ -54,10 +54,8 @@ El componente funciona igual sin `tokens.css` porque tiene valores por defecto.
 |----------|-------------|-------------|
 | `src`    | Sí          | URL de la imagen grande |
 | `thumb`  | Sí          | URL de la miniatura |
-| `alt`    | Sí          | Texto alternativo (accesibilidad) |
-| `title`  | No          | Título que se ve en el caption |
-| `desc`   | No          | Descripción larga del caption |
-| `error`  | No          | `true` si la imagen falló al cargar |
+| `error`  | No          | `true` si la imagen falló al cargar (borde rojo) |
+| `incidencia` | No      | `true` si la imagen es una incidencia (borde rojo) |
 
 ## Atributos HTML
 

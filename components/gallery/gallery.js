@@ -296,6 +296,7 @@ class GalleryComponent extends HTMLElement {
     this._mainImage.setAttribute('aria-describedby',
       this._showCaption && d.title ? 'caption' : '');
     this._mainImage.classList.toggle('gallery__image--error', !!d.error);
+    this._mainImage.classList.toggle('gallery__image--incidencia', !!d.incidencia);
 
     // Anunciamos el número de slide para lectores de pantalla
     const slideLabel = 'Slide ' + (this._activeIndex + 1)
@@ -316,7 +317,8 @@ class GalleryComponent extends HTMLElement {
       btn.type = 'button';
       btn.className = 'gallery__thumb'
         + (i === this._activeIndex ? ' gallery__thumb--active' : '')
-        + (item.error ? ' gallery__thumb--error' : '');
+        + (item.error ? ' gallery__thumb--error' : '')
+        + (item.incidencia ? ' gallery__thumb--incidencia' : '');
       btn.role = 'tab';
       btn.setAttribute('aria-selected', i === this._activeIndex);
       btn.setAttribute('aria-current', i === this._activeIndex ? 'true' : 'false');
