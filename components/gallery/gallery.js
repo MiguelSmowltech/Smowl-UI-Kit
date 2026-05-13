@@ -1,15 +1,20 @@
 /* ============================================================
    COMPONENTE: gallery-component
    ============================================================
-   Este archivo crea un elemento personalizado HTML.
+   Este archivo crea un elemento HTML personalizado.
    Se llama "gallery-component".
+
    Sirve para mostrar imágenes en una galería
    con miniaturas y pantalla completa.
 
    Cómo se usa en HTML:
    <gallery-component id="miGaleria"></gallery-component>
 
-   Más información en:
+   Cómo se configura desde JavaScript:
+   const galeria = document.getElementById('miGaleria');
+   galeria.images = [ ... ];
+
+   Más información:
    https://github.com/MiguelSmowltech/Smowl-UI-Kit
    ============================================================ */
 
@@ -81,7 +86,15 @@ template.innerHTML = `
   .gallery--medium { width: 803px; }
   .gallery--small  { width: 640px; }
 
-  /* Pantalla completa */
+/* ============================================================
+     ESTILOS DE PANTALLA COMPLETA
+     ============================================================
+     Cuando el atributo "fullscreen" está presente,
+     la galería ocupa toda la pantalla.
+
+     :host([fullscreen]) significa:
+     "el componente que tiene el atributo fullscreen".
+     ============================================================ */
   :host([fullscreen]) .gallery {
     position: fixed;
     inset: 0;
@@ -201,7 +214,13 @@ template.innerHTML = `
   .gallery__nav-btn:focus-visible { outline: 2px solid var(--color-brand-500); outline-offset: 2px; }
   .gallery__nav-btn svg { width: 24px; height: 24px; fill: var(--color-primary-700); }
 
-  /* El texto que se superpone a la imagen */
+/* ============================================================
+     CAPTION — Texto sobre la imagen
+     ============================================================
+     Muestra el título y la descripción.
+     Tiene un fondo degradado para que se lea bien.
+     Si está vacío, el degradado desaparece.
+     ============================================================ */
   .gallery__caption {
     position: absolute;
     bottom: 0;
@@ -425,9 +444,20 @@ template.innerHTML = `
 </div>
 `;
 
-// ============================================================
+// ================================================================
 // PASO 2: Definir la clase del componente
-// ============================================================
+// ================================================================
+//
+// ¿Qué es una clase?
+// ------------------
+// Una clase es como un molde o una receta.
+// Cada vez que el navegador encuentra
+// la etiqueta <gallery-component> en el HTML,
+// usa esta clase para crear el elemento.
+//
+// La clase "extends HTMLElement" significa que
+// este componente se comporta como cualquier
+// elemento HTML (<div>, <button>, etc.).
 //
 // Una clase es como un molde.
 // Cada vez que usamos <gallery-component> en el HTML,
@@ -544,11 +574,28 @@ class GalleryComponent extends HTMLElement {
     this._dispatch('fullscreen-change', { fullscreen: !!val });
   }
 
-  // ------------------------------------------------------------
+// ==============================================================
   // connectedCallback()
-  // ------------------------------------------------------------
-  // Se ejecuta cuando el componente se añade a la página.
-  // Aquí conectamos los botones y preparamos todo.
+  // ==============================================================
+  //
+  // ¿Qué hace?
+  // ----------
+  // Se ejecuta AUTOMÁTICAMENTE cuando el componente
+  // se añade a la página.
+  //
+  // ¿Qué pasa aquí?
+  // ----------------
+  // 1. Buscamos los elementos del Shadow DOM
+  //    (mainImage, thumbTrack, caption, botones...)
+  // 2. Conectamos los botones a sus funciones
+  // 3. Conectamos el teclado para las miniaturas
+  // 4. Conectamos el doble clic para fullscreen
+  // 5. Aplicamos el tamaño inicial y dibujamos todo
+  //
+  // Nota: La función $(id) es una forma corta de escribir
+  //   this.shadowRoot.getElementById('mainImage')
+  // En lugar de eso, escribimos:
+  //   this.$('mainImage')
 
   connectedCallback() {
     this.$ = (id) => this.shadowRoot.getElementById(id);
