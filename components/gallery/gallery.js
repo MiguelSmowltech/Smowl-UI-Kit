@@ -244,7 +244,7 @@ template.innerHTML = `
 
   .gallery__thumb-track {
     display: flex;
-    gap: var(--gap);
+    gap: 8px;
     transition: transform 0.3s ease;
   }
 
@@ -456,7 +456,7 @@ class GalleryComponent extends HTMLElement {
     this._images = [];
     this._activeIndex = 0;
     this._thumbPage = 0;
-    this._gap = 16;
+    this._gap = 8;
     this._viewport = 'medium';
     this._showThumbnails = true;
     this._showCaption = false;
