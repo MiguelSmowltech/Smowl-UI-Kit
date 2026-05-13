@@ -73,6 +73,37 @@ template.innerHTML = `
   .gallery--medium { width: 803px; }
   .gallery--small  { width: 640px; }
 
+  /* Pantalla completa */
+  :host([fullscreen]) .gallery {
+    position: fixed;
+    inset: 0;
+    width: 100vw !important;
+    height: 100vh;
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+    z-index: 9999;
+  }
+
+  :host([fullscreen]) .gallery__main {
+    flex: 1;
+    height: auto !important;
+    min-height: 0;
+  }
+
+  :host([fullscreen]) .gallery__image {
+    object-fit: contain;
+  }
+
+  :host([fullscreen]) .gallery__thumbnails {
+    width: 100%;
+    align-self: stretch;
+  }
+
+  :host([fullscreen]) .gallery__nav-btn { opacity: 1; }
+  :host([fullscreen]) .gallery__nav--prev { left: 0; padding: 10px; }
+  :host([fullscreen]) .gallery__nav--next { right: 0; padding: 10px; }
+
   /* Área donde se ve la imagen grande */
   .gallery__main {
     position: relative;
@@ -346,7 +377,8 @@ class GalleryComponent extends HTMLElement {
     'viewport',
     'show-thumbnails',
     'show-caption',
-    'show-navigators'
+    'show-navigators',
+    'fullscreen'
   ];
 
   // ------------------------------------------------------------
@@ -434,6 +466,16 @@ class GalleryComponent extends HTMLElement {
   set showNavigators(val) { this._showNavigators = val; this._render(); }
 
   // ------------------------------------------------------------
+  // PROPIEDAD: fullscreen
+  // ------------------------------------------------------------
+  // Activa o desactiva la pantalla completa.
+
+  get fullscreen() { return this.hasAttribute('fullscreen'); }
+  set fullscreen(val) {
+    this.toggleAttribute('fullscreen', !!val);
+  }
+
+  // ------------------------------------------------------------
   // connectedCallback()
   // ------------------------------------------------------------
   // Se ejecuta cuando el componente se añade a la página.
@@ -496,6 +538,8 @@ class GalleryComponent extends HTMLElement {
       case 'show-navigators':
         this._showNavigators = newVal !== 'false';
         this._render();
+        break;
+      case 'fullscreen':
         break;
     }
   }

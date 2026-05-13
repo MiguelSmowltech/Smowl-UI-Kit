@@ -153,23 +153,8 @@
     .main-top { margin-bottom: 40px; }
 
     /* Pantalla completa */
-    body.is-fullscreen { background: var(--color-primary-800); }
     body.is-fullscreen .aside { display: none; }
     body.is-fullscreen main { padding: 0; }
-    body.is-fullscreen gallery-component {
-      position: fixed; inset: 0;
-      width: 100vw; height: 100vh;
-      max-width: 100vw; max-height: 100vh;
-      border-radius: 0; z-index: 9999;
-    }
-    body.is-fullscreen gallery-component::part(slide) {
-      flex: 1; height: auto; min-height: 0;
-    }
-    body.is-fullscreen gallery-component::part(thumbnails) {
-      width: 100%; align-self: stretch;
-    }
-    body.is-fullscreen gallery-component::part(prev-btn),
-    body.is-fullscreen gallery-component::part(next-btn) { opacity: 1; }
 
     /* Botón de cerrar pantalla completa */
     .fullscreen-btn-close {
@@ -249,19 +234,6 @@
                 aria-expanded="false">
           Pantalla completa
         </button>
-      </div>
-
-      <!-- Atajos de teclado -->
-      <div class="aside__group">
-        <div class="aside__group-title">Teclado</div>
-        <div style="font-size:12px;color:var(--color-primary-600);line-height:1.8;">
-          <kbd style="padding:1px 5px;border:1px solid var(--color-primary-100);border-radius:3px;">F</kbd> Pantalla completa<br>
-          <kbd style="padding:1px 5px;border:1px solid var(--color-primary-100);border-radius:3px;">←</kbd>
-          <kbd style="padding:1px 5px;border:1px solid var(--color-primary-100);border-radius:3px;">→</kbd> Anterior / Siguiente<br>
-          <kbd style="padding:1px 5px;border:1px solid var(--color-primary-100);border-radius:3px;">Esc</kbd> Salir de pantalla completa<br>
-          <kbd style="padding:1px 5px;border:1px solid var(--color-primary-100);border-radius:3px;">↕</kbd> Navegar miniaturas<br>
-          <kbd style="padding:1px 5px;border:1px solid var(--color-primary-100);border-radius:3px;">⏎</kbd> Seleccionar miniatura
-        </div>
       </div>
     </aside>
 
@@ -348,13 +320,12 @@
     // 2. Pantalla completa
     // ============================================================
 
-    let isFullscreen = false;
-
     function toggleFullscreen() {
-      isFullscreen = !isFullscreen;
-      document.body.classList.toggle('is-fullscreen', isFullscreen);
+      const isOn = !gallery.fullscreen;
+      gallery.fullscreen = isOn;
+      document.body.classList.toggle('is-fullscreen', isOn);
       document.getElementById('btnFullscreen')
-        .setAttribute('aria-expanded', isFullscreen);
+        .setAttribute('aria-expanded', isOn);
     }
 
     // Botones de pantalla completa
@@ -368,7 +339,7 @@
 
     // Teclado
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isFullscreen) toggleFullscreen();
+      if (e.key === 'Escape' && gallery.fullscreen) toggleFullscreen();
       if (e.key === 'f' || e.key === 'F') {
         e.preventDefault();
         toggleFullscreen();
