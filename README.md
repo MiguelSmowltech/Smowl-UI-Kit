@@ -1,52 +1,45 @@
 # Smowl UI Kit
 
-Framework-agnostic web component demos for the Smowltech Design System.
+Componentes HTML reutilizables. Sin frameworks.
+Cada componente es un elemento HTML personalizado.
 
-## Structure
-
-```
-├── README.md
-├── .template/                        — Template with conventions
-└── components/
-    └── component-name/
-        ├── component-name.js         — Custom Element definition
-        └── index.html                — Demo page
-```
-
-Each component is a **vanilla Custom Element** with:
-
-- Shadow DOM for style encapsulation
-- Attributes + properties for configuration
-- Events for communication
-- CSS `::part()` for external styling
-- Zero framework dependencies
-
-## Conventions
-
-| Convention | Rule |
-|---|---|
-| File names | `kebab-case` |
-| Element tag | `kebab-case` (e.g. `<gallery-component>`) |
-| Class name | `PascalCase` (e.g. `GalleryComponent`) |
-| Module | ES module (`type="module"`) |
-| Dependencies | None (vanilla JS only) |
-
-## Components
-
-| Component | Tag | Description | Status |
-|---|---|---|---|---|
-| [Checkbox](components/checkbox/) | `<checkbox-component>` | Custom checkbox with label, states, keyboard nav | Active |
-| [Gallery](components/gallery/) | `<gallery-component>` | Image gallery with thumbnails, fullscreen, keyboard nav | Active |
-
-## Usage
+## Cómo se usa
 
 ```html
 <script type="module" src="components/gallery/gallery.js"></script>
-<gallery-component id="gallery"></gallery-component>
+
+<gallery-component id="miGaleria"></gallery-component>
+
 <script type="module">
   import './components/gallery/gallery.js';
-  document.getElementById('gallery').images = [
-    { src: 'image.jpg', thumb: 'thumb.jpg', alt: 'Description' }
+
+  const galeria = document.getElementById('miGaleria');
+  galeria.images = [
+    { src: 'foto.jpg', thumb: 'miniatura.jpg', alt: 'Descripción' }
   ];
 </script>
 ```
+
+## Componentes
+
+| Componente | Etiqueta HTML | ¿Qué hace? |
+|---|---|---|
+| [Gallery](components/gallery/) | `<gallery-component>` | Muestra imágenes con miniaturas y pantalla completa |
+
+## Estructura del proyecto
+
+```
+├── README.md
+├── .template/           → Plantilla con instrucciones
+└── components/
+    └── gallery/
+        ├── gallery.js   → El componente
+        └── index.html   → Página de demostración
+```
+
+## Convenciones
+
+-   Nombres de archivo: `kebab-case`
+-   Etiqueta HTML: `kebab-case`
+-   Clase en JavaScript: `PascalCase`
+-   Sin dependencias. Solo JavaScript del navegador.
