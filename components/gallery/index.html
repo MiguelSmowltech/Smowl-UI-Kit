@@ -78,18 +78,6 @@
     body.is-fullscreen .aside { display: none; }
     body.is-fullscreen main { padding: 0; }
 
-    .fullscreen-btn-close {
-      display: none; position: fixed; top: 20px; right: 20px;
-      width: 40px; height: 40px;
-      border: none; border-radius: var(--radius-round);
-      background: var(--color-neutral-0);
-      align-items: center; justify-content: center;
-      cursor: pointer; padding: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15); z-index: 10000;
-    }
-    body.is-fullscreen .fullscreen-btn-close { display: flex; }
-    .fullscreen-btn-close svg { width: 24px; height: 24px; fill: var(--color-primary-700); }
-
     /* ========== DOCS ========== */
     .docs {
       width: 100%; max-width: 1000px;
@@ -395,11 +383,6 @@ gallery.viewport = <span class="str">'large'</span>;</div>
       </section>
     </main>
 
-    <button class="fullscreen-btn-close" id="fsClose" aria-label="Cerrar pantalla completa">
-      <svg viewBox="0 0 24 24">
-        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-      </svg>
-    </button>
   </div>
 
   <script type="module">
@@ -432,10 +415,13 @@ gallery.viewport = <span class="str">'large'</span>;</div>
       document.getElementById('btnFullscreen').setAttribute('aria-expanded', isOn);
     }
     document.getElementById('btnFullscreen').addEventListener('click', toggleFullscreen);
-    document.getElementById('fsClose').addEventListener('click', toggleFullscreen);
     gallery.addEventListener('fullscreen-toggle', toggleFullscreen);
+    gallery.addEventListener('fullscreen-change', (e) => {
+      document.body.classList.toggle('is-fullscreen', e.detail.fullscreen);
+      document.getElementById('btnFullscreen').setAttribute('aria-expanded', e.detail.fullscreen);
+    });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && gallery.fullscreen) toggleFullscreen();
+      if (e.key === 'Escape' && gallery.fullscreen) gallery.fullscreen = false;
       if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggleFullscreen(); }
     });
 

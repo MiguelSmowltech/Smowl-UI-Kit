@@ -104,6 +104,30 @@ template.innerHTML = `
   :host([fullscreen]) .gallery__nav--prev { left: 0; padding: 10px; }
   :host([fullscreen]) .gallery__nav--next { right: 0; padding: 10px; }
 
+  /* Botón de cerrar en pantalla completa */
+  .gallery__close-btn {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: var(--radius-round);
+    background: var(--color-neutral-0);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    z-index: 10000;
+  }
+
+  :host([fullscreen]) .gallery__close-btn { display: flex; }
+  .gallery__close-btn:hover { opacity: 0.85; transform: scale(1.05); }
+  .gallery__close-btn:focus-visible { outline: 2px solid var(--color-brand-500); outline-offset: 2px; }
+  .gallery__close-btn svg { width: 24px; height: 24px; fill: var(--color-primary-700); }
+
   /* Área donde se ve la imagen grande */
   .gallery__main {
     position: relative;
@@ -322,6 +346,15 @@ template.innerHTML = `
     <div class="gallery__caption" id="caption"
          aria-live="polite" part="caption">
     </div>
+
+    <!-- Botón de cerrar pantalla completa -->
+    <button class="gallery__close-btn" id="closeBtn"
+            part="close-btn"
+            aria-label="Cerrar pantalla completa">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+      </svg>
+    </button>
   </div>
 
   <!-- ========== TIRA DE MINIATURAS ========== -->
@@ -473,6 +506,7 @@ class GalleryComponent extends HTMLElement {
   get fullscreen() { return this.hasAttribute('fullscreen'); }
   set fullscreen(val) {
     this.toggleAttribute('fullscreen', !!val);
+    this._dispatch('fullscreen-change', { fullscreen: !!val });
   }
 
   // ------------------------------------------------------------
@@ -508,6 +542,12 @@ class GalleryComponent extends HTMLElement {
     // Doble clic en la imagen → pantalla completa
     this._mainImage.addEventListener('dblclick', () => {
       this._dispatch('fullscreen-toggle');
+    });
+
+    // Botón de cerrar pantalla completa
+    this._closeBtn = this.$('closeBtn');
+    this._closeBtn.addEventListener('click', () => {
+      this.fullscreen = false;
     });
 
     this._applyViewport();
