@@ -3,6 +3,14 @@
    ============================================================
    Estos estilos se cargan dentro del Shadow DOM.
    Solo afectan a <gallery-component>.
+
+   Las variables CSS (--color-*, --spacing-*, etc.)
+   se definen en tokens.css (raíz del proyecto).
+   Si tokens.css está cargado en la página,
+   las variables llegan al Shadow DOM automáticamente.
+
+   Si no está cargado, el componente usa los valores
+   por defecto que definimos en :host.
    ============================================================ */
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
@@ -16,6 +24,9 @@
      ============================================================ */
 
   :host {
+    /* Fallback: si tokens.css no está cargado,
+       estos valores por defecto aseguran que
+       el componente funciona igual. */
     --color-brand-500: #0092D1;
     --color-danger-500: #C51321;
     --color-danger-100: #FBD0D4;

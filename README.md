@@ -30,12 +30,28 @@ Cada componente es un elemento HTML personalizado.
 
 ```
 ├── README.md
-├── .template/           → Plantilla con instrucciones
+├── tokens.css             → Variables CSS globales
+├── .template/             → Plantilla con instrucciones
 └── components/
     └── gallery/
-        ├── gallery.js   → El componente
-        └── index.html   → Página de demostración
+        ├── gallery.html   → Estructura HTML del componente
+        ├── gallery.css    → Estilos del componente
+        ├── gallery.js     → Lógica del componente
+        └── index.html     → Página de demostración
 ```
+
+## tokens.css
+
+El archivo `tokens.css` contiene todas las variables del sistema de diseño:
+colores, espacios, bordes, tipografía.
+Cada componente demo debe incluirlo en su página:
+
+```html
+<link rel="stylesheet" href="../../tokens.css">
+```
+
+Los componentes también tienen valores por defecto en su `:host`,
+por lo que funcionan incluso sin `tokens.css`.
 
 ## Convenciones
 
