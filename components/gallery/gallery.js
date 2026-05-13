@@ -45,8 +45,12 @@ template.innerHTML = `
     --color-primary-700: #1C304B;
     --color-primary-800: #0B131E;
     --color-primary-100: #EBEBEE;
+    --color-primary-200: #E0E0E4;
+    --color-primary-400: #ADADB5;
     --color-primary-600: #5C6573;
     --color-neutral-0: #FFFFFF;
+    --color-info-500: #0061F4;
+    --border-secondary: #EBEBEE;
     --radius-md: 8px;
     --radius-sm: 4px;
     --radius-round: 64px;
@@ -55,6 +59,10 @@ template.innerHTML = `
 
     display: block;
     font-family: 'Montserrat', sans-serif;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
 
   /* La galería entera */
