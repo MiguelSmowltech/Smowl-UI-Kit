@@ -276,7 +276,7 @@ template.innerHTML = `
   .gallery__thumb-btn {
     width: 40px;
     height: 40px;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-sm, 4px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -294,18 +294,11 @@ template.innerHTML = `
   .gallery__thumb-btn svg { width: 24px; height: 24px; fill: var(--color-primary-700); }
 
   .gallery__thumb-btn:hover {
-    background: var(--color-primary-200);
-    border-color: var(--color-brand-500);
+    background: #F4F4F6;
+    border-color: var(--color-primary-100);
   }
 
-  .gallery__thumb-btn:hover svg { fill: var(--color-brand-500); }
-
-  .gallery__thumb-btn:active {
-    background: var(--color-brand-500);
-    border-color: var(--color-brand-500);
-  }
-
-  .gallery__thumb-btn:active svg { fill: var(--color-neutral-0); }
+  .gallery__thumb-btn:hover svg { fill: var(--color-primary-700); }
 
   .gallery__thumb-btn:focus-visible {
     outline: 2px solid var(--color-brand-500);
