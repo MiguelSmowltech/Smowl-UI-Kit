@@ -206,6 +206,11 @@ template.innerHTML = `
     z-index: 10;
   }
 
+  .gallery__caption:empty {
+    background: none;
+    padding: 0;
+  }
+
   .gallery__caption-title { font-weight: 600; font-size: 16px; margin-bottom: 2px; }
   .gallery__caption-desc { font-size: 13px; opacity: 0.85; }
 
