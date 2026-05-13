@@ -678,7 +678,7 @@ class GalleryComponent extends HTMLElement {
 
     // Calculamos el desplazamiento
     const firstThumb = this._thumbTrack.querySelector('.gallery__thumb');
-    const thumbW = firstThumb ? firstThumb.querySelector('img').offsetWidth : 160;
+    const thumbW = firstThumb ? firstThumb.offsetWidth : 164;
     const offset = this._thumbPage * (thumbW + this._gap);
     this._thumbTrack.style.transform = `translateX(-${offset}px)`;
 
