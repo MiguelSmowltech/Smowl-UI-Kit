@@ -276,21 +276,50 @@ template.innerHTML = `
   .gallery__thumb-btn {
     width: 40px;
     height: 40px;
-    border: none;
     border-radius: var(--radius-sm);
-    background: var(--color-neutral-0);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     flex-shrink: 0;
     padding: 8px;
+    transition: all 0.15s;
+    font-family: inherit;
+
+    /* Default */
+    background: var(--color-neutral-0);
     border: 1px solid var(--color-primary-100);
   }
 
-  .gallery__thumb-btn:hover { background: #f0f0f0; }
   .gallery__thumb-btn svg { width: 24px; height: 24px; fill: var(--color-primary-700); }
-  .gallery__thumb-btn:disabled { opacity: 0.3; cursor: default; }
+
+  .gallery__thumb-btn:hover {
+    background: var(--color-primary-200);
+    border-color: var(--color-brand-500);
+  }
+
+  .gallery__thumb-btn:hover svg { fill: var(--color-brand-500); }
+
+  .gallery__thumb-btn:active {
+    background: var(--color-brand-500);
+    border-color: var(--color-brand-500);
+  }
+
+  .gallery__thumb-btn:active svg { fill: var(--color-neutral-0); }
+
+  .gallery__thumb-btn:focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+
+  .gallery__thumb-btn:disabled {
+    background: var(--color-primary-200);
+    border-color: transparent;
+    cursor: default;
+    opacity: 0.4;
+  }
+
+  .gallery__thumb-btn:disabled svg { fill: var(--color-primary-400); }
 </style>
 
 <!-- ============================================================
