@@ -215,7 +215,7 @@ template.innerHTML = `
     align-items: center;
     gap: 10px;
     padding: var(--spacing-2xs);
-    background: var(--color-primary-800);
+    background: var(--color-neutral-0);
     border-top: 1px solid var(--color-primary-100);
     border-radius: 0 0 var(--radius-md) var(--radius-md);
   }
@@ -251,7 +251,7 @@ template.innerHTML = `
     border: 2px solid transparent;
     transition: border-color 0.2s;
     padding: 0;
-    background: transparent;
+    background: var(--color-primary-800);
     overflow: hidden;
   }
 
