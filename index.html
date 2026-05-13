@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery Component - Interactive Demo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #f0f0f5;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    :root {
+      /* ===== Colores de Marca ===== */
+      --color-brand-100: #D1F1FF;
+      --color-brand-200: #9EE2FF;
+      --color-brand-300: #6BD2FF;
+      --color-brand-400: #05B4FF;
+      --color-brand-500: #0092D1;
+      --color-brand-600: #006E9E;
+      --color-brand-700: #004B6B;
+
+      /* ===== Colores Neutrales ===== */
+      --color-neutral-0: #FFFFFF;
+      --color-neutral-100: #E9E9EC;
+      --color-neutral-200: #E0E0E4;
+      --color-neutral-300: #D9D9DE;
+      --color-neutral-400: #CCCCD3;
+      --color-neutral-500: #ADADB5;
+      --color-neutral-600: #8F959B;
+
+      /* ===== Colores Primarios ===== */
+      --color-primary-100: #EBEBEE;
+      --color-primary-200: #E0E0E4;
+      --color-primary-300: #CCCCD3;
+      --color-primary-400: #ADADB5;
+      --color-primary-500: #7C828A;
+      --color-primary-600: #5C6573;
+      --color-primary-700: #1C304B;
+      --color-primary-800: #0B131E;
+
+      /* ===== Colores Semánticos - Alerta ===== */
+      --color-alert-100: #FFE099;
+      --color-alert-200: #FFD166;
+      --color-alert-500: #FFC133;
+      --color-alert-700: #B88000;
+
+      /* ===== Colores Semánticos - Peligro ===== */
+      --color-danger-100: #FBD0D4;
+      --color-danger-200: #F27D86;
+      --color-danger-500: #C51321;
+      --color-danger-700: #660A11;
+
+      /* ===== Colores Semánticos - Información ===== */
+      --color-info-100: #B2D1FF;
+      --color-info-200: #5C9DFF;
+      --color-info-500: #0061F4;
+      --color-info-700: #00398F;
+
+      /* ===== Colores Semánticos - Éxito ===== */
+      --color-success-100: #CAF1C1;
+      --color-success-200: #96E283;
+      --color-success-500: #73D85A;
+      --color-success-700: #33841F;
+
+      /* ===== Surface Tokens ===== */
+      --surface-success: #CAF1C1;
+      --surface-primary-lighter: #5C6573;
+      --surface-primary-darker: #0B131E;
+      --surface-primary: #1C304B;
+      --surface-inverse: #FFFFFF;
+      --surface-informative-lighter: #5C9DFF;
+      --surface-informative: #0061F4;
+      --surface-disabled: #E0E0E4;
+      --surface-danger-lighter: #FBD0D4;
+      --surface-danger: #C51321;
+      --surface-brand-lightest: #D1F1FF;
+      --surface-brand-lighter: #9EE2FF;
+      --surface-brand-darker: #006E9E;
+      --surface-brand: #0092D1;
+      --surface-alert: #FFC133;
+
+      /* ===== Content Tokens ===== */
+      --content-success: #33841F;
+      --content-primary-lighter: #5C6573;
+      --content-primary-darker: #0B131E;
+      --content-primary: #1C304B;
+      --content-inverse: #FFFFFF;
+      --content-informative-lighter: #B2D1FF;
+      --content-informative: #0061F4;
+      --content-disabled: #5C6573;
+      --content-danger: #660A11;
+      --content-brand: #0092D1;
+      --content-alert-darker: #B88000;
+      --content-alert: #FFC133;
+
+      /* ===== Border Tokens ===== */
+      --border-success: #73D85A;
+      --border-secondary: #EBEBEE;
+      --border-primary-lighter: #5C6573;
+      --border-primary-darker: #0B131E;
+      --border-primary: #1C304B;
+      --border-inverse: #FFFFFF;
+      --border-informative-lighter: #5C9DFF;
+      --border-informative: #0061F4;
+      --border-disabled: #ADADB5;
+      --border-danger: #C51321;
+      --border-brand-lighter: #9EE2FF;
+      --border-brand: #0092D1;
+      --border-alert: #FFC133;
+
+      /* ===== Background Tokens ===== */
+      --background-lightest: #FFFFFF;
+      --background-lighter-2: #F4F4F6;
+      --background-lighter-1: #E9E9EC;
+      --background-light: #E0E0E4;
+
+      /* ===== Spacing ===== */
+      --spacing-none: 0;
+      --spacing-4xs: 2px;
+      --spacing-3xs: 4px;
+      --spacing-2xs: 8px;
+      --spacing-xs: 16px;
+      --spacing-sm: 24px;
+      --spacing-md: 32px;
+      --spacing-lg: 40px;
+      --spacing-xl: 48px;
+      --spacing-2xl: 56px;
+      --spacing-3xl: 64px;
+
+      /* ===== Border Radius ===== */
+      --radius-none: 0;
+      --radius-xs: 2px;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 16px;
+      --radius-round: 64px;
+
+      /* ===== Tipografía ===== */
+      --font-size-hero: clamp(3rem, 6vw + 1rem, 4rem);
+      --font-size-h1: clamp(2.5rem, 5vw + 1rem, 3rem);
+      --font-size-h2: clamp(2rem, 4vw + 1rem, 2.5rem);
+      --font-size-h3: clamp(1.5rem, 3vw + 1rem, 2rem);
+      --font-size-h4: clamp(1.25rem, 2vw + 1rem, 1.5rem);
+      --font-size-large: clamp(1.25rem, 1.5vw + 1rem, 1.25rem);
+      --font-size-base: 1rem;
+      --font-size-medium: 0.875rem;
+      --font-size-small: 0.75rem;
+      --font-size-caption: 0.75rem;
+
+      --font-size-100: 12px;
+      --font-size-200: 14px;
+      --font-size-300: 16px;
+      --font-size-400: 20px;
+      --font-size-500: 24px;
+      --font-size-600: 32px;
+      --font-size-700: 40px;
+      --font-size-800: 48px;
+      --font-size-900: 64px;
+      --font-size-1000: 80px;
+
+      --font-family-base: 'Montserrat', sans-serif;
+      --font-weight-regular: 400;
+      --font-weight-medium: 500;
+      --font-weight-semibold: 600;
+      --font-weight-bold: 700;
+
+      --line-height-100: 16px;
+      --line-height-200: 24px;
+      --line-height-300: 32px;
+      --line-height-400: 40px;
+      --line-height-500: 48px;
+      --line-height-600: 56px;
+      --line-height-700: 72px;
+      --line-height-800: 88px;
+
+      --gap: 16px;
+    }
+
+    /* ===== LAYOUT ===== */
+    .app { display: flex; width: 100%; }
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+      overflow-y: auto;
+      min-height: 100vh;
+    }
+    .main-top { margin-bottom: 60px; }
+
+    /* ===== ASIDE PANEL ===== */
+    .aside {
+      width: 320px;
+      min-height: 100vh;
+      background: var(--background-lightest);
+      border-right: 1px solid var(--border-secondary);
+      padding: 24px;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .aside__title { font-size: 20px; font-weight: 600; color: var(--content-primary); margin-bottom: 4px; }
+    .aside__subtitle { font-size: 13px; color: var(--content-primary-lighter); margin-bottom: 24px; }
+
+    .aside__group { margin-bottom: 20px; }
+    .aside__group-title { font-size: 12px; font-weight: 600; color: var(--content-primary-lighter); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+
+    .toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+    }
+
+    .toggle__label { font-size: 14px; color: var(--content-primary); flex: 1; }
+    .toggle__value { font-size: 12px; color: var(--content-primary-lighter); margin-right: 8px; min-width: 30px; text-align: right; }
+
+    .switch {
+      width: 36px;
+      height: 20px;
+      background: var(--surface-disabled);
+      border-radius: var(--radius-round);
+      border: none;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+
+    .switch.active { background: var(--surface-brand); }
+    .switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .switch.active::after { transform: translateX(16px); }
+
+    .select-control {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 0;
+    }
+
+    .select-control label { font-size: 14px; color: var(--content-primary); }
+    .select-control select, .select-control input {
+      padding: 4px 8px;
+      border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 13px;
+      width: 80px;
+      text-align: center;
+    }
+
+    .select-control input[type="range"] { width: 100px; border: none; padding: 0; }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: var(--surface-brand);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 8px;
+      transition: background 0.2s;
+    }
+
+    .btn:hover { background: #0078b3; }
+    .btn--secondary { background: var(--background-lightest); color: var(--content-primary); border: 1px solid var(--border-secondary); }
+    .btn--secondary:hover { background: #f5f5f5; }
+
+    /* ===== GALLERY ===== */
+    .gallery-wrapper { position: relative; }
+
+    .gallery {
+      display: flex;
+      flex-direction: column;
+      max-width: 100%;
+      background: var(--surface-primary-darker);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery--large  { width: 1000px; }
+    .gallery--medium { width: 803px; }
+    .gallery--small  { width: 640px; }
+
+    .gallery__main {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gallery--large  .gallery__main { height: 440px; }
+    .gallery--medium .gallery__main { height: 342px; }
+    .gallery--small  .gallery__main { height: 274px; }
+
+    .gallery__image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .gallery__image--error {
+      border: 4px solid var(--surface-danger);    /* Figma: stroke 4px INSIDE #C51321 */
+      outline: 2px solid var(--surface-danger-lighter, #FBD0D4); /* Figma: outer border 2px #FBD0D4 */
+      outline-offset: -6px;
+      border-radius: var(--radius-md);
+      box-sizing: border-box;
+    }
+
+    /* Fullscreen */
+    body.is-fullscreen { background: var(--surface-primary-darker); }
+    body.is-fullscreen .aside { display: none; }
+    body.is-fullscreen .main { padding: 0; }
+    body.is-fullscreen .gallery {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      max-width: 100vw;
+      max-height: 100vh;
+      border-radius: 0;
+      z-index: 9999;
+    }
+    body.is-fullscreen .gallery__main {
+      flex: 1;
+      height: auto;
+      min-height: 0;
+    }
+    body.is-fullscreen .gallery__image {
+      object-fit: contain;
+    }
+    body.is-fullscreen .gallery__thumbnails {
+      width: 100%;
+      align-self: stretch;
+    }
+    body.is-fullscreen .gallery__nav-btn { opacity: 1; }
+    body.is-fullscreen .gallery__nav--prev { left: 0; padding: 10px; }
+    body.is-fullscreen .gallery__nav--next { right: 0; padding: 10px; }
+    body.is-fullscreen .gallery__image { object-fit: contain; }
+
+    .fullscreen-btn-close {
+      display: none;
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: var(--radius-round);
+      background: var(--background-lightest);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      z-index: 10000;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    body.is-fullscreen .fullscreen-btn-close { display: flex; }
+    .fullscreen-btn-close:hover { opacity: 0.85; transform: scale(1.05); }
+    .fullscreen-btn-close:focus-visible { outline: 2px solid var(--surface-brand); outline-offset: 2px; }
+    .fullscreen-btn-close svg { width: 24px; height: 24px; fill: var(--content-primary); }
+
+    /* Caption */
+    .gallery__caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 16px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: white;
+      font-size: 14px;
+      z-index: 10;
+    }
+
+    .gallery__caption-title { font-weight: 600; font-size: 16px; margin-bottom: 2px; }
+    .gallery__caption-desc { font-size: 13px; opacity: 0.85; }
+
+    .gallery__nav {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      padding: 10px 8px;
+      z-index: 20;
+    }
+
+    .gallery__nav--prev { left: 0; }
+    .gallery__nav--next { right: 0; }
+
+    .gallery__nav-btn {
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: var(--radius-round);
+      background: var(--background-lightest);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      padding: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      opacity: 0;
+    }
+
+    .gallery__main:hover .gallery__nav-btn { opacity: 1; }
+    .gallery__nav-btn.visible { opacity: 1; }
+    .gallery__nav-btn:hover { opacity: 0.85 !important; transform: scale(1.05); }
+    .gallery__nav-btn:focus-visible { outline: 2px solid var(--surface-brand); outline-offset: 2px; }
+    .gallery__nav-btn svg { width: 24px; height: 24px; fill: var(--content-primary); }
+
+    .gallery__thumbnails {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      background: var(--background-lightest);
+      border-top: 1px solid var(--border-secondary);
+      border-radius: 0 0 var(--radius-md) var(--radius-md);
+    }
+
+    .gallery--large  .gallery__thumbnails,
+    .gallery--medium .gallery__thumbnails { height: 110px; }
+    .gallery--small  .gallery__thumbnails { height: 90px; }
+
+    .gallery__thumb-scroll {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .gallery--large  .gallery__thumb-scroll,
+    .gallery--medium .gallery__thumb-scroll { height: 90px; }
+    .gallery--small  .gallery__thumb-scroll { height: 74px; }
+
+    .gallery__thumb-track {
+      display: flex;
+      gap: 16px;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery__thumb {
+      flex-shrink: 0;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s;
+      padding: 0;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .gallery--large  .gallery__thumb,
+    .gallery--medium .gallery__thumb { width: 160px; height: 90px; }
+    .gallery--small  .gallery__thumb { width: 130px; height: 74px; }
+
+    .gallery__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      pointer-events: none;
+    }
+
+    .gallery__thumb:hover { border-color: #0061F4; opacity: 0.85; }
+    .gallery__thumb:focus-visible { outline: 2px solid var(--surface-brand); outline-offset: 2px; }
+    .gallery__thumb--active { border-color: #0061F4; opacity: 1 !important; }
+    .gallery__thumb--error { border: 4px solid var(--surface-danger); }  /* Figma: error = 4px #C51321 */
+
+    .gallery__thumb-btn {
+      width: 40px;                   /* Figma: 40x40 */
+      height: 40px;                  /* Figma: 40x40 */
+      border: none;
+      border-radius: var(--radius-sm);
+      background: var(--background-lightest);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 8px;                  /* Figma: padding 8px */
+      border: 1px solid var(--border-secondary);
+    }
+
+    .gallery__thumb-btn:hover { background: #f0f0f0; }
+    .gallery__thumb-btn svg { width: 24px; height: 24px; fill: var(--content-primary); }
+    .gallery__thumb-btn:disabled { opacity: 0.3; cursor: default; }
+
+    /* ===== DOCS SECTION ===== */
+    .docs {
+      width: 100%;
+      max-width: 1000px;
+      background: var(--background-lightest);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-secondary);
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+    .docs__title { font-size: 22px; font-weight: 600; color: var(--content-primary); margin-bottom: 8px; }
+    .docs__intro { font-size: 14px; color: var(--content-primary-lighter); margin-bottom: 32px; line-height: 1.5; }
+    .docs__heading { font-size: 16px; font-weight: 600; color: var(--content-primary); margin: 28px 0 8px; padding-bottom: 6px; border-bottom: 1px solid var(--border-secondary); }
+    .docs__subheading { font-size: 14px; font-weight: 600; color: var(--content-primary); margin: 20px 0 4px; }
+    .docs__text { font-size: 13px; color: var(--content-primary-lighter); margin-bottom: 8px; line-height: 1.5; }
+    .docs__text code { background: #f4f4f5; padding: 1px 5px; border-radius: 3px; font-size: 12px; }
+    .docs__item { margin-bottom: 24px; }
+    .docs__item-header { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+    .docs__item-label { font-size: 15px; font-weight: 600; color: var(--content-primary); }
+    .docs__item-prop { font-size: 12px; color: var(--surface-brand); background: #f0f7ff; padding: 2px 8px; border-radius: 4px; font-family: 'SF Mono', monospace; }
+    .docs__table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 13px; }
+    .docs__table th { text-align: left; font-weight: 600; color: var(--content-primary); background: #f8f8fa; padding: 8px 12px; border-bottom: 2px solid var(--border-secondary); }
+    .docs__table td { padding: 7px 12px; border-bottom: 1px solid var(--border-secondary); color: var(--content-primary); }
+    .docs__table code { background: #f4f4f5; padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--surface-brand); }
+    .docs__code {
+      background: #1a1a2e;
+      color: #e4e4e7;
+      font-family: 'SF Mono', 'Menlo', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 20px;
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      margin-bottom: 16px;
+      tab-size: 2;
+    }
+    .docs__code .cm { color: #6b7280; font-style: italic; }    /* comment */
+    .docs__code .k { color: #a78bfa; }                          /* keyword */
+    .docs__code .s { color: #f97316; }                          /* string */
+    .docs__code .o { color: #fbbf24; }                          /* operator */
+    .docs__code .nf { color: #60a5fa; }                         /* function */
+    .docs__code .py { color: #34d399; }                         /* property */
+    .docs__note {
+      margin-top: 24px;
+      padding: 12px 16px;
+      background: #f0f7ff;
+      border-left: 3px solid var(--surface-brand);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      color: var(--content-primary);
+      line-height: 1.5;
+    }
+    .docs__note strong { color: var(--content-primary); }
+
+    /* ===== CODE VIEWER ===== */
+    .codev {
+      width: 100%;
+      max-width: 1000px;
+      background: #1e1e2e;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    }
+    .codev__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #181825;
+      border-bottom: 1px solid #313244;
+    }
+    .codev__title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #cdd6f4;
+      letter-spacing: 0.3px;
+    }
+    .codev__title svg {
+      vertical-align: text-bottom;
+      margin-right: 6px;
+    }
+    .codev__tabs-row { display: flex; gap: 2px; padding: 6px 16px; background: #181825; border-bottom: 1px solid #313244; }
+    .codev__tab {
+      padding: 5px 14px;
+      border: none;
+      border-radius: 6px;
+      background: transparent;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      color: #6c7086;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .codev__tab:hover { color: #cdd6f4; background: #313244; }
+    .codev__tab.active { color: #cdd6f4; background: #45475a; }
+    .codev__action {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #6c7086;
+      font-size: 12px;
+    }
+    .codev__copy-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border: 1px solid #45475a;
+      border-radius: 6px;
+      background: transparent;
+      color: #a6adc8;
+      font-family: inherit;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .codev__copy-btn:hover { background: #313244; color: #cdd6f4; border-color: #585b70; }
+    .codev__copy-btn.copied { background: #a6e3a1; color: #1e1e2e; border-color: #a6e3a1; }
+    .codev__copy-btn svg { width: 14px; height: 14px; }
+    .codev__lang {
+      font-size: 11px;
+      color: #585b70;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .codev__panels { position: relative; }
+    .codev__panel {
+      display: none;
+      margin: 0;
+      padding: 16px 0;
+      background: #1e1e2e;
+      color: #cdd6f4;
+      font-family: 'SF Mono', 'JetBrains Mono', 'Menlo', monospace;
+      font-size: 12.5px;
+      line-height: 1.65;
+      overflow-x: auto;
+      max-height: 460px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+      tab-size: 2;
+    }
+    .codev__panel.active { display: flex; }
+    .codev__line-nums {
+      flex-shrink: 0;
+      padding: 0 14px 0 16px;
+      text-align: right;
+      color: #585b70;
+      user-select: none;
+      border-right: 1px solid #313244;
+      margin-right: 16px;
+      line-height: inherit;
+      font-size: inherit;
+      font-family: inherit;
+      white-space: pre;
+    }
+    .codev__panel code {
+      flex: 1;
+      padding-right: 16px;
+      font-family: inherit;
+      font-size: inherit;
+      line-height: inherit;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .codev__panel code .hl-tag    { color: #89b4fa; }  /* blue */
+    .codev__panel code .hl-attr   { color: #f9e2af; }  /* yellow */
+    .codev__panel code .hl-str    { color: #a6e3a1; }  /* green */
+    .codev__panel code .hl-cm     { color: #6c7086; font-style: italic; }  /* gray */
+    .codev__panel code .hl-kw     { color: #cba6f7; }  /* purple */
+    .codev__panel code .hl-prop   { color: #89b4fa; }  /* blue */
+    .codev__panel code .hl-val    { color: #a6e3a1; }  /* green */
+    .codev__panel code .hl-sel    { color: #f9e2af; }  /* yellow */
+    .codev__panel code .hl-fn     { color: #f9e2af; }  /* yellow */
+    .codev__panel code .hl-num    { color: #fab387; }  /* orange */
+    .codev__panel code .hl-op     { color: #89dceb; }  /* teal */
+    .codev__panel code .hl-punc   { color: #bac2de; }  /* light gray */
+    .codev__panel code .hl-doctype { color: #6c7086; } /* gray */
+
+    /* Custom scrollbar */
+    .codev__panel::-webkit-scrollbar { width: 8px; height: 8px; }
+    .codev__panel::-webkit-scrollbar-track { background: #181825; }
+    .codev__panel::-webkit-scrollbar-thumb { background: #45475a; border-radius: 4px; }
+    .codev__panel::-webkit-scrollbar-thumb:hover { background: #585b70; }
+
+    @media (max-width: 900px) {
+      .app { flex-direction: column; }
+      .aside { width: 100%; min-height: auto; border-right: none; border-bottom: 1px solid var(--border-secondary); }
+      .main { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- ===== ASIDE ===== -->
+    <aside class="aside">
+      <div class="aside__title">Gallery</div>
+      <div class="aside__subtitle">Interactive Demo</div>
+
+      <div class="aside__group">
+        <div class="aside__group-title">Thumbnails</div>
+        <div class="toggle">
+          <span class="toggle__label">Show thumbnails</span>
+          <button class="switch active" id="toggleThumbs" role="switch" aria-checked="true" aria-label="Mostrar miniaturas"></button>
+        </div>
+      </div>
+
+      <div class="aside__group">
+        <div class="aside__group-title">Viewport</div>
+        <div class="select-control">
+          <label for="viewportSelect">Tamaño</label>
+          <select id="viewportSelect">
+            <option value="1920">1920 × 1080</option>
+            <option value="1440" selected>1440 × 900</option>
+            <option value="1280">1280 × 800</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="aside__group">
+        <div class="aside__group-title">Display</div>
+        <div class="toggle">
+          <span class="toggle__label">Show caption</span>
+          <button class="switch" id="toggleCaption" role="switch" aria-checked="false" aria-label="Mostrar caption"></button>
+        </div>
+      </div>
+
+      <div class="aside__group" style="border-top: 1px solid var(--border-secondary); padding-top: 16px;">
+        <button class="btn" id="btnFullscreen" aria-expanded="false" aria-controls="gallery">Toggle Fullscreen</button>
+      </div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <main class="main">
+      <div class="main-top">
+        <div class="gallery-wrapper" id="galleryWrapper">
+          <div class="gallery" id="gallery" role="region" aria-roledescription="carousel" aria-label="Galería de imágenes">
+
+            <div class="gallery__main" id="galleryMain" role="group" aria-roledescription="slide" aria-live="polite" aria-atomic="true">
+              <div class="gallery__nav gallery__nav--prev" id="navPrev">
+                <button class="gallery__nav-btn" id="navPrevBtn" aria-label="Imagen anterior" aria-controls="galleryMain">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                </button>
+              </div>
+
+              <img class="gallery__image" id="mainImage" src="" alt="" />
+
+              <div class="gallery__nav gallery__nav--next" id="navNext">
+                <button class="gallery__nav-btn" id="navNextBtn" aria-label="Imagen siguiente" aria-controls="galleryMain">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                </button>
+              </div>
+
+              <div class="gallery__caption" id="caption" aria-live="polite"></div>
+            </div>
+
+            <!-- THUMBNAILS AREA -->
+            <div class="gallery__thumbnails" id="thumbnails" role="region" aria-label="Miniaturas de la galería">
+              <button class="gallery__thumb-btn" id="thumbPrev" aria-label="Anterior">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+              </button>
+              <div class="gallery__thumb-scroll" id="thumbScroll">
+                <div class="gallery__thumb-track" id="thumbTrack" role="tablist" aria-orientation="horizontal" aria-label="Lista de miniaturas"></div>
+              </div>
+              <button class="gallery__thumb-btn" id="thumbNext" aria-label="Siguiente">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== CODE VIEWER ===== -->
+      <section class="codev">
+        <div class="codev__header">
+          <div class="codev__title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#cdd6f4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            Source Code
+          </div>
+          <div class="codev__action">
+            <span class="codev__lang" id="codevLang">HTML</span>
+            <button class="codev__copy-btn" id="codevCopy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+          </div>
+        </div>
+        <div class="codev__tabs-row" style="display:flex;gap:2px;padding:6px 16px;background:#181825;border-bottom:1px solid #313244;">
+          <button class="codev__tab active" data-tab="html" role="tab" aria-selected="true">HTML</button>
+          <button class="codev__tab" data-tab="css" role="tab" aria-selected="false">CSS</button>
+          <button class="codev__tab" data-tab="js" role="tab" aria-selected="false">JS</button>
+          <button class="codev__tab" data-tab="full" role="tab" aria-selected="false">Full Page</button>
+        </div>
+        <div class="codev__panels">
+          <pre class="codev__panel active" id="panel-html" role="tabpanel"><div class="codev__line-nums" id="nums-html"></div><code id="code-html"></code></pre>
+          <pre class="codev__panel" id="panel-css" role="tabpanel"><div class="codev__line-nums" id="nums-css"></div><code id="code-css"></code></pre>
+          <pre class="codev__panel" id="panel-js" role="tabpanel"><div class="codev__line-nums" id="nums-js"></div><code id="code-js"></code></pre>
+          <pre class="codev__panel" id="panel-full" role="tabpanel"><div class="codev__line-nums" id="nums-full"></div><code id="code-full"></code></pre>
+        </div>
+      </section>
+
+      <!-- ===== DOCUMENTATION ===== -->
+      <section class="docs">
+        <h2 class="docs__title">Galleria &mdash; Documentación del Componente (PrimeVue v4)</h2>
+        <p class="docs__intro">Componente de galería multimedia con soporte para miniaturas, navegación, pantalla completa y responsive.</p>
+
+        <h3 class="docs__heading">Import</h3>
+        <pre class="docs__code"><span class="k">import</span> Galleria <span class="k">from</span> <span class="s">'primevue/galleria'</span>;</pre>
+
+        <h3 class="docs__heading">Uso Básico</h3>
+        <p class="docs__text">Requiere un <code>value</code> (array de objetos), <code>#item</code> para la imagen principal y <code>#thumbnail</code> para las miniaturas.</p>
+        <pre class="docs__code">&lt;<span class="k">Galleria</span> <span class="py">:value</span>=<span class="s">"images"</span> <span class="py">:numVisible</span>=<span class="s">"5"</span>&gt;
+  &lt;<span class="k">template</span> <span class="py">#item</span>=<span class="s">"slotProps"</span>&gt;
+    &lt;<span class="k">img</span> <span class="py">:src</span>=<span class="s">"slotProps.item.itemImageSrc"</span>
+      <span class="py">:alt</span>=<span class="s">"slotProps.item.alt"</span>
+      <span class="py">style</span>=<span class="s">"width: 100%; display: block"</span> /&gt;
+  &lt;/<span class="k">template</span>&gt;
+  &lt;<span class="k">template</span> <span class="py">#thumbnail</span>=<span class="s">"slotProps"</span>&gt;
+    &lt;<span class="k">img</span> <span class="py">:src</span>=<span class="s">"slotProps.item.thumbnailImageSrc"</span>
+      <span class="py">:alt</span>=<span class="s">"slotProps.item.alt"</span>
+      <span class="py">style</span>=<span class="s">"display: block"</span> /&gt;
+  &lt;/<span class="k">template</span>&gt;
+&lt;/<span class="k">Galleria</span>&gt;</pre>
+
+        <h3 class="docs__heading">Props</h3>
+        <table class="docs__table">
+          <thead><tr><th>Prop</th><th>Tipo</th><th>Descripción</th></tr></thead>
+          <tbody>
+            <tr><td><code>value</code></td><td><code>Array</code></td><td>Colección de elementos a mostrar</td></tr>
+            <tr><td><code>v-model:activeIndex</code></td><td><code>Number</code></td><td>Índice del elemento activo</td></tr>
+            <tr><td><code>v-model:visible</code></td><td><code>Boolean</code></td><td>Controla visibilidad en fullscreen</td></tr>
+            <tr><td><code>numVisible</code></td><td><code>Number</code></td><td>Miniaturas visibles simultáneamente</td></tr>
+            <tr><td><code>showThumbnails</code></td><td><code>Boolean</code></td><td>Muestra/oculta la tira de miniaturas</td></tr>
+            <tr><td><code>thumbnailsPosition</code></td><td><code>String</code></td><td>Posición: <code>bottom</code>, <code>top</code>, <code>left</code>, <code>right</code></td></tr>
+            <tr><td><code>showItemNavigators</code></td><td><code>Boolean</code></td><td>Botones anterior/siguiente en el item</td></tr>
+            <tr><td><code>showItemNavigatorsOnHover</code></td><td><code>Boolean</code></td><td>Navegadores visibles solo al hover</td></tr>
+            <tr><td><code>fullScreen</code></td><td><code>Boolean</code></td><td>Activa modo pantalla completa</td></tr>
+            <tr><td><code>containerStyle</code></td><td><code>Object</code></td><td>Estilos en línea para el contenedor</td></tr>
+            <tr><td><code>responsiveOptions</code></td><td><code>Array</code></td><td>Configuración responsive por breakpoint</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="docs__heading">Templates</h3>
+        <table class="docs__table">
+          <thead><tr><th>Slot</th><th>Bindings</th><th>Uso</th></tr></thead>
+          <tbody>
+            <tr><td><code>#item</code></td><td><code>{ item, index }</code></td><td>Slide principal</td></tr>
+            <tr><td><code>#thumbnail</code></td><td><code>{ item, index }</code></td><td>Miniatura del elemento</td></tr>
+            <tr><td><code>#caption</code></td><td><code>{ item, index }</code></td><td>Descripción superpuesta</td></tr>
+          </tbody>
+        </table>
+
+        <h3 class="docs__heading">Fullscreen</h3>
+        <p class="docs__text">Se activa con <code>:fullScreen="true"</code> y <code>v-model:visible</code>.</p>
+        <pre class="docs__code">&lt;<span class="k">Galleria</span> <span class="py">v-model:visible</span>=<span class="s">"visible"</span>
+  <span class="py">:value</span>=<span class="s">"images"</span> <span class="py">:fullScreen</span>=<span class="s">"true"</span>
+  <span class="py">:showItemNavigators</span>=<span class="s">"true"</span>
+  <span class="py">:showThumbnails</span>=<span class="s">"true"</span> <span class="py">:numVisible</span>=<span class="s">"9"</span>&gt;
+  &lt;<span class="k">template</span> <span class="py">#item</span>=<span class="s">"slotProps"</span>&gt;
+    &lt;<span class="k">img</span> <span class="py">:src</span>=<span class="s">"slotProps.item.itemImageSrc"</span>
+      <span class="py">style</span>=<span class="s">"width: 100%; display: block"</span> /&gt;
+  &lt;/<span class="k">template</span>&gt;
+  &lt;<span class="k">template</span> <span class="py">#thumbnail</span>=<span class="s">"slotProps"</span>&gt;
+    &lt;<span class="k">img</span> <span class="py">:src</span>=<span class="s">"slotProps.item.thumbnailImageSrc"</span>
+      <span class="py">style</span>=<span class="s">"display: block"</span> /&gt;
+  &lt;/<span class="k">template</span>&gt;
+&lt;/<span class="k">Galleria</span>&gt;</pre>
+
+        <h3 class="docs__heading">Responsive</h3>
+        <p class="docs__text">Configuración por breakpoint vía <code>responsiveOptions</code>.</p>
+        <pre class="docs__code"><span class="k">const</span> responsiveOptions <span class="o">=</span> [
+  { <span class="py">breakpoint</span>: <span class="s">'1920px'</span>, <span class="py">numVisible</span>: <span class="s">5</span> },
+  { <span class="py">breakpoint</span>: <span class="s">'1440px'</span>, <span class="py">numVisible</span>: <span class="s">5</span> },
+  { <span class="py">breakpoint</span>: <span class="s">'1280px'</span>, <span class="py">numVisible</span>: <span class="s">4</span> }
+];</pre>
+
+        <h3 class="docs__heading">Accesibilidad</h3>
+        <p class="docs__text">Basado en la <a href="https://primevue.org/galleria/#accessibility" target="_blank" rel="noopener">documentación oficial de PrimeVue Galleria</a>.</p>
+
+        <h4 class="docs__subheading">Screen Reader</h4>
+        <p class="docs__text">El componente usa <code>role="region"</code> como contenedor principal. <code>aria-label</code> y <code>aria-roledescription</code> se pueden añadir para describir el carrusel. El contenedor de slides tiene <code>aria-live="polite"</code> (o <code>"off"</code> en autoplay). Cada slide tiene <code>role="group"</code> con <code>aria-roledescription="slide"</code>. Los slides inactivos se ocultan con <code>aria-hidden</code>.</p>
+        <p class="docs__text">Los botones de navegación tienen <code>aria-label</code> que se configura vía <code>aria.prevPageLabel</code> y <code>aria.nextPageLabel</code> en la API de <a href="https://primevue.org/configuration/#locale" target="_blank" rel="noopener">locale</a>. Las miniaturas siguen el patrón de tabs: <code>role="tablist"</code> / <code>role="tab"</code> con <code>aria-selected</code> y <code>aria-controls</code>.</p>
+        <p class="docs__text">En fullscreen, el overlay usa <code>role="dialog"</code> con <code>aria-modal="true"</code>. El botón de cierre usa <code>aria-label</code> desde <code>aria.close</code> del locale.</p>
+
+        <h4 class="docs__subheading">Navegación por teclado</h4>
+        <p class="docs__text"><strong>Botones Anterior/Siguiente:</strong></p>
+        <table class="docs__table">
+          <thead><tr><th>Tecla</th><th>Función</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>Tab</kbd></td><td>Mueve el foco entre elementos interactivos</td></tr>
+            <tr><td><kbd>Enter</kbd> / <kbd>Space</kbd></td><td>Activa la navegación</td></tr>
+          </tbody>
+        </table>
+        <p class="docs__text"><strong>Miniaturas (Quick Navigation):</strong></p>
+        <table class="docs__table">
+          <thead><tr><th>Tecla</th><th>Función</th></tr></thead>
+          <tbody>
+            <tr><td><kbd>Tab</kbd></td><td>Mueve el foco al thumbnail activo</td></tr>
+            <tr><td><kbd>Enter</kbd> / <kbd>Space</kbd></td><td>Activa el thumbnail enfocado</td></tr>
+            <tr><td><kbd>→</kbd></td><td>Mueve al siguiente thumbnail</td></tr>
+            <tr><td><kbd>←</kbd></td><td>Mueve al thumbnail anterior</td></tr>
+            <tr><td><kbd>Home</kbd></td><td>Va al primer thumbnail</td></tr>
+            <tr><td><kbd>End</kbd></td><td>Va al último thumbnail</td></tr>
+          </tbody>
+        </table>
+
+        <div class="docs__note">
+          <strong>Referencia:</strong> <a href="https://primevue.org/galleria/" target="_blank" rel="noopener">PrimeVue Galleria</a> &mdash; <a href="https://primevue.org/galleria/#accessibility" target="_blank" rel="noopener">Accesibilidad</a> &mdash; <a href="https://www.w3.org/WAI/tutorials/carousels/" target="_blank" rel="noopener">WAI Carousel Tutorial</a>
+        </div>
+      </section>
+    </main>
+
+    <button class="fullscreen-btn-close" id="fsClose" aria-label="Cerrar pantalla completa">
+      <svg viewBox="0 0 24 24">
+        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+      </svg>
+    </button>
+
+  </div>
+
+  <script>
+    // ===== DATA =====
+    const galleryData = [
+      { src: 'https://picsum.photos/608/342?random=11', thumb: 'https://picsum.photos/160/90?random=11', alt: 'Paisaje montañoso', title: 'Montañas', desc: 'Vista panorámica de la cordillera' },
+      { src: 'https://picsum.photos/608/342?random=12', thumb: 'https://picsum.photos/160/90?random=12', alt: 'Ciudad moderna', title: 'Arquitectura', desc: 'Edificios contemporáneos' },
+      { src: 'https://picsum.photos/608/342?random=13', thumb: 'https://picsum.photos/160/90?random=13', alt: 'Error al cargar', title: 'Error', desc: 'Esta imagen tiene un error', error: true },
+      { src: 'https://picsum.photos/608/342?random=14', thumb: 'https://picsum.photos/160/90?random=14', alt: 'Naturaleza', title: 'Naturaleza', desc: 'Bosque y vegetación' },
+      { src: 'https://picsum.photos/608/342?random=15', thumb: 'https://picsum.photos/160/90?random=15', alt: 'Mar y playa', title: 'Mar', desc: 'Atardecer en la playa' },
+      { src: 'https://picsum.photos/608/342?random=16', thumb: 'https://picsum.photos/160/90?random=16', alt: 'Arte urbano', title: 'Arte', desc: 'Mural callejero' },
+    ];
+
+    // ===== STATE =====
+    const state = {
+      activeIndex: 0,
+      showNav: true,
+      showThumbs: true,
+      viewport: 1440,
+      showCaption: false,
+      isFullscreen: false,
+      thumbPage: 0,
+    };
+
+    // ===== DOM REFS =====
+    const $ = id => document.getElementById(id);
+    const mainImage = $('mainImage');
+    const thumbTrack = $('thumbTrack');
+    const caption = $('caption');
+    const navPrevBtn = $('navPrevBtn');
+    const navNextBtn = $('navNextBtn');
+    const thumbPrev = $('thumbPrev');
+    const thumbNext = $('thumbNext');
+
+    // ===== RENDER =====
+    function render() {
+      const total = galleryData.length;
+      const idx = state.activeIndex;
+      const d = galleryData[idx];
+
+      // Main image
+      mainImage.src = d.src;
+      mainImage.alt = d.alt || '';
+      mainImage.setAttribute('aria-describedby', state.showCaption && d.title ? 'caption' : '');
+      if (d.error) mainImage.classList.add('gallery__image--error');
+      else mainImage.classList.remove('gallery__image--error');
+
+      // Slide group: announce current slide
+      const slideLabel = 'Slide ' + (idx + 1) + ' of ' + total + (d.title ? ': ' + d.title : '');
+      $('galleryMain').setAttribute('aria-label', slideLabel);
+
+      // Thumbnails
+      thumbTrack.innerHTML = '';
+      galleryData.forEach((item, i) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'gallery__thumb' + (i === idx ? ' gallery__thumb--active' : '') + (item.error ? ' gallery__thumb--error' : '');
+        btn.role = 'tab';
+        btn.setAttribute('aria-selected', i === idx);
+        btn.setAttribute('aria-current', i === idx ? 'true' : 'false');
+        btn.setAttribute('aria-controls', 'galleryMain');
+        btn.setAttribute('aria-label', item.alt + (item.title ? ': ' + item.title : ''));
+        btn.tabIndex = i === idx ? 0 : -1;
+        btn.addEventListener('click', () => goTo(i));
+        btn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goTo(i); } });
+
+        const thumbImg = document.createElement('img');
+        thumbImg.src = item.thumb;
+        thumbImg.alt = '';
+        thumbImg.setAttribute('aria-hidden', 'true');
+        btn.appendChild(thumbImg);
+
+        thumbTrack.appendChild(btn);
+      });
+
+      const firstThumb = thumbTrack.querySelector('.gallery__thumb');
+      const thumbW = firstThumb ? firstThumb.querySelector('img').offsetWidth : 160;
+      const offset = state.thumbPage * (thumbW + gap);
+      thumbTrack.style.transform = `translateX(-${offset}px)`;
+
+      // Thumb scroll buttons
+      const thumbScrollEl = $('thumbScroll');
+      const thumbTrackW = thumbScrollEl.clientWidth;
+      const numVisible = Math.max(1, Math.floor((thumbTrackW + gap) / (thumbW + gap)));
+      const maxPage = Math.max(0, galleryData.length - numVisible);
+      if (state.thumbPage > maxPage) state.thumbPage = maxPage;
+      thumbPrev.disabled = state.thumbPage <= 0;
+      thumbNext.disabled = state.thumbPage >= maxPage;
+
+      // Caption
+      caption.innerHTML = '';
+      if (state.showCaption && d.title) {
+        const t = document.createElement('div');
+        t.className = 'gallery__caption-title';
+        t.id = 'caption-title';
+        t.textContent = d.title;
+        caption.appendChild(t);
+        if (d.desc) {
+          const s = document.createElement('div');
+          s.className = 'gallery__caption-desc';
+          s.textContent = d.desc;
+          caption.appendChild(s);
+        }
+      }
+
+      // Nav visibility
+      const navPrev = navPrevBtn.closest('.gallery__nav');
+      const navNext = navNextBtn.closest('.gallery__nav');
+      navPrevBtn.classList.toggle('visible', state.showNav);
+      navNextBtn.classList.toggle('visible', state.showNav);
+      navPrev.style.display = state.showNav ? '' : 'none';
+      navNext.style.display = state.showNav ? '' : 'none';
+
+      // Thumbnails visibility
+      $('thumbnails').style.display = state.showThumbs ? '' : 'none';
+    }
+
+    // ===== NAVIGATION =====
+    const gap = 16;
+
+    function goTo(index) {
+      state.activeIndex = index;
+      render();
+    }
+
+    function next() {
+      goTo((state.activeIndex + 1) % galleryData.length);
+    }
+
+    function prev() {
+      goTo((state.activeIndex - 1 + galleryData.length) % galleryData.length);
+    }
+
+    // ===== TOGGLES =====
+    function setupToggle(id, stateKey, onChange) {
+      const btn = $(id);
+      btn.addEventListener('click', () => {
+        state[stateKey] = !state[stateKey];
+        btn.classList.toggle('active', state[stateKey]);
+        btn.setAttribute('aria-checked', state[stateKey]);
+        if (onChange) onChange(state[stateKey]);
+        render();
+      });
+    }
+
+    setupToggle('toggleThumbs', 'showThumbs');
+    setupToggle('toggleCaption', 'showCaption');
+
+    // Viewport
+    const sizeMap = { 1920: 'large', 1440: 'medium', 1280: 'small' };
+    $('viewportSelect').addEventListener('change', () => {
+      state.viewport = parseInt($('viewportSelect').value);
+      const gallery = $('gallery');
+      gallery.className = 'gallery gallery--' + sizeMap[state.viewport];
+      state.thumbPage = 0;
+      render();
+    });
+
+    // Nav buttons
+    navPrevBtn.addEventListener('click', prev);
+    navNextBtn.addEventListener('click', next);
+
+    // Double-click on image toggles fullscreen
+    mainImage.addEventListener('dblclick', toggleFullscreen);
+
+    // Thumb scroll
+    thumbPrev.addEventListener('click', () => { if (state.thumbPage > 0) { state.thumbPage--; render(); } });
+    thumbNext.addEventListener('click', () => { state.thumbPage++; render(); });
+
+    // Thumbnail keyboard navigation (roving tabindex)
+    thumbTrack.addEventListener('keydown', (e) => {
+      const thumbs = thumbTrack.querySelectorAll('.gallery__thumb');
+      if (!thumbs.length) return;
+      let idx = state.activeIndex;
+      if (e.key === 'ArrowRight') { e.preventDefault(); idx = (idx + 1) % thumbs.length; }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); idx = (idx - 1 + thumbs.length) % thumbs.length; }
+      else if (e.key === 'Home') { e.preventDefault(); idx = 0; }
+      else if (e.key === 'End') { e.preventDefault(); idx = thumbs.length - 1; }
+      else return;
+      goTo(idx);
+      setTimeout(() => {
+        const t = thumbTrack.querySelectorAll('.gallery__thumb');
+        t[idx]?.focus();
+      }, 0);
+    });
+
+    // Keyboard
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+      if (e.key === 'Escape' && state.isFullscreen) toggleFullscreen();
+      if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggleFullscreen(); }
+    });
+
+    // Fullscreen
+    function toggleFullscreen() {
+      state.isFullscreen = !state.isFullscreen;
+      document.body.classList.toggle('is-fullscreen', state.isFullscreen);
+      $('btnFullscreen').setAttribute('aria-expanded', state.isFullscreen);
+      $('fsClose').setAttribute('aria-expanded', state.isFullscreen);
+    }
+
+    $('btnFullscreen').addEventListener('click', toggleFullscreen);
+    $('fsClose').addEventListener('click', toggleFullscreen);
+
+    // ===== INIT =====
+    Object.defineProperty(state, 'gap', { get: () => gap });
+    $('gallery').classList.add('gallery--medium');
+    goTo(0);
+
+    // ===== CODE VIEWER =====
+    (function() {
+      const styleTags = document.querySelectorAll('style');
+      const scripts   = document.querySelectorAll('script');
+      let cssCode = '', jsCode = '';
+
+      for (const s of styleTags) {
+        const raw = s.textContent;
+        // Only gallery-related CSS (root tokens + gallery section)
+        const rootMatch = raw.match(/\/\* ===== Colores de Marca =====[\s\S]*?--gap: 16px;/);
+        const galleryMatch = raw.match(/\/\* ===== GALLERY =====[\s\S]*?(?=\/\* ===== DOCS SECTION =====)/);
+        if (rootMatch) cssCode += rootMatch[0] + '\n\n';
+        if (galleryMatch) cssCode += galleryMatch[0];
+      }
+
+      for (const s of scripts) {
+        const t = s.textContent.trim();
+        if (t.startsWith('// ===== DATA') || t.includes('galleryData = [')) {
+          jsCode = t;
+          break;
+        }
+      }
+
+      // === Syntax Highlighters ===
+
+      function esc(str) { return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+      function hlHtml(raw) {
+        const e = esc(raw);
+        const out = [];
+        let i = 0;
+        while (i < e.length) {
+          // Comment
+          if (e.slice(i, i+4) === '&lt;' && e.slice(i+4, i+7) === '!--') {
+            const end = e.indexOf('--&gt;', i+7);
+            const j = end !== -1 ? end + 5 : e.length;
+            out.push('<span class="hl-cm">' + e.slice(i, j) + '</span>');
+            i = j;
+            continue;
+          }
+          // Closing tag
+          if (e.slice(i, i+5) === '&lt;/') {
+            let j = i + 5;
+            while (j < e.length && /[\w-]/.test(e[j])) j++;
+            out.push('&lt;<span class="hl-tag">/' + e.slice(i+5, j) + '</span>');
+            i = j;
+            continue;
+          }
+          // Opening tag
+          if (e.slice(i, i+4) === '&lt;') {
+            let j = i + 4;
+            while (j < e.length && /[\w-]/.test(e[j])) j++;
+            const tag = e.slice(i+4, j);
+            if (tag) {
+              out.push('&lt;<span class="hl-tag">' + tag + '</span>');
+              i = j;
+              continue;
+            }
+          }
+          // Attribute name
+          if (/[\w-]/.test(e[i]) && e.slice(i, i+8) !== '&amp;amp;') {
+            let j = i;
+            while (j < e.length && /[\w-]/.test(e[j])) j++;
+            const word = e.slice(i, j);
+            if (j < e.length && e[j] === '=' && !/^&/.test(word)) {
+              out.push('<span class="hl-attr">' + word + '</span>=');
+              i = j + 1;
+              // Attribute value
+              if (e[i] === '"') {
+                const end = e.indexOf('"', i+1);
+                if (end !== -1) {
+                  out.push('<span class="hl-str">' + e.slice(i, end+1) + '</span>');
+                  i = end + 1;
+                  continue;
+                }
+              }
+              if (e[i] === "'") {
+                const end = e.indexOf("'", i+1);
+                if (end !== -1) {
+                  out.push('<span class="hl-str">' + e.slice(i, end+1) + '</span>');
+                  i = end + 1;
+                  continue;
+                }
+              }
+              continue;
+            }
+          }
+          // Default
+          out.push(e[i]);
+          i++;
+        }
+        return out.join('');
+      }
+
+      function hlCss(raw) {
+        const e = esc(raw);
+        return e
+          .replace(/\/\*[\s\S]*?\*\//g, '<span class="hl-cm">$&</span>')
+          .replace(/([.#]?[\w-]+)(?=\s*\{)/g, '<span class="hl-sel">$1</span>')
+          .replace(/([\w-]+)(?=\s*:)/g, '<span class="hl-prop">$1</span>')
+          .replace(/:\s*([^;{}]+)/g, function(m) {
+            const val = m.slice(2);
+            const colored = val.replace(/(#[0-9a-fA-F]+|rgba?\([^)]+\)|[\d.]+(?:px|em|rem|%|vh|vw|s|ms)?|var\([^)]+\))/g, '<span class="hl-val">$1</span>');
+            return ': ' + colored;
+          });
+      }
+
+      function hlJs(raw) {
+        const e = esc(raw);
+        const kw = '\\b(const|let|var|function|return|if|else|for|while|do|switch|case|break|continue|new|this|typeof|instanceof|true|false|null|undefined|import|from|export|default|class|extends|async|await|try|catch|throw|of|in)\\b';
+        return e
+          .replace(/\/\/.*/g, '<span class="hl-cm">$&</span>')
+          .replace(/\/\*[\s\S]*?\*\//g, '<span class="hl-cm">$&</span>')
+          .replace(/('[^']*')/g, '<span class="hl-str">$1</span>')
+          .replace(/(`[^`]*`)/g, '<span class="hl-str">$1</span>')
+          .replace(/"([^"\\]*(\\.[^"\\]*)*)"/g, '<span class="hl-str">"$1"</span>')
+          .replace(new RegExp(kw, 'g'), '<span class="hl-kw">$1</span>')
+          .replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="hl-num">$1</span>')
+          .replace(/([A-Za-z_$][\w$]*)\s*\(/g, '<span class="hl-fn">$1</span>(');
+      }
+
+      const hlMap = { html: hlHtml, css: hlCss, js: hlJs, full: hlHtml };
+
+      function lineNums(n, el) {
+        let nums = '';
+        for (let i = 1; i <= n; i++) nums += i + '\n';
+        el.textContent = nums;
+      }
+
+      function setPanel(id, code, lang) {
+        const h = (hlMap[lang] || hlHtml)(code);
+        $(id).innerHTML = h;
+        const lines = code.split('\n').length;
+        lineNums(lines, document.getElementById('nums-' + id.replace('code-', '')));
+      }
+
+      setPanel('code-css', cssCode, 'css');
+      setPanel('code-js', jsCode, 'js');
+
+      const mainTop = document.querySelector('.main-top');
+      setPanel('code-html', mainTop ? mainTop.outerHTML : '', 'html');
+
+      // Full page
+      const clone = document.documentElement.cloneNode(true);
+      const scripts2 = clone.querySelectorAll('script');
+      for (const s of scripts2) {
+        const t = s.textContent.trim();
+        if (t.includes('CODE VIEWER')) {
+          s.textContent = '\n    // ===== CODE VIEWER =====\n    // (injected at runtime)\n';
+        }
+      }
+      setPanel('code-full', '<!DOCTYPE html>\n' + clone.outerHTML, 'html');
+
+      // Tab switching
+      const tabLang = { html: 'HTML', css: 'CSS', js: 'JavaScript', full: 'Full Page' };
+      document.querySelectorAll('.codev__tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.codev__tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+          document.querySelectorAll('.codev__panel').forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          tab.setAttribute('aria-selected','true');
+          document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+          document.getElementById('codevLang').textContent = tabLang[tab.dataset.tab] || tab.textContent;
+          const copyBtn = document.getElementById('codevCopy');
+          copyBtn.classList.remove('copied');
+          copyBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+        });
+      });
+
+      // Copy
+      document.getElementById('codevCopy').addEventListener('click', function() {
+        const activePanel = document.querySelector('.codev__panel.active');
+        if (!activePanel) return;
+        const code = activePanel.querySelector('code');
+        if (!code) return;
+        navigator.clipboard.writeText(code.textContent).then(() => {
+          this.classList.add('copied');
+          this.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!';
+          setTimeout(() => {
+            this.classList.remove('copied');
+            this.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy';
+          }, 2000);
+        }).catch(() => {});
+      });
+    })();
+  </script>
+</body>
+</html>
