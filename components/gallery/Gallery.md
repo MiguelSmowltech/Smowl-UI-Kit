@@ -64,7 +64,6 @@ El componente funciona igual sin `tokens.css` porque tiene valores por defecto.
 | `viewport`           | `large`, `medium`, `small`  | `medium`    | Tamaño de la galería |
 | `show-thumbnails`    | `true`, `false`             | `true`      | Muestra u oculta miniaturas |
 | `show-caption`       | `true`, `false`             | `false`     | Muestra u oculta el texto |
-| `show-navigators`    | `true`, `false`             | `true`      | Muestra u oculta botones < > |
 | `fullscreen`         | (atributo booleano)         | —           | Activa pantalla completa |
 
 Ejemplo:
@@ -82,7 +81,6 @@ Ejemplo:
 | `.viewport`        | `String`  | `'large'`, `'medium'` o `'small'` |
 | `.showThumbnails`  | `Boolean` | `true` = se ven miniaturas |
 | `.showCaption`     | `Boolean` | `true` = se ve el caption |
-| `.showNavigators`  | `Boolean` | `true` = se ven los botones |
 | `.fullscreen`      | `Boolean` | `true` = pantalla completa |
 
 Ejemplo:

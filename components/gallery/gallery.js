@@ -78,7 +78,6 @@ class GalleryComponent extends HTMLElement {
     'viewport',
     'show-thumbnails',
     'show-caption',
-    'show-navigators',
     'fullscreen'
   ];
 
@@ -101,7 +100,6 @@ class GalleryComponent extends HTMLElement {
     this._viewport = 'medium';
     this._showThumbnails = true;
     this._showCaption = false;
-    this._showNavigators = true;
   }
 
   // ------------------------------------------------------------
@@ -157,14 +155,6 @@ class GalleryComponent extends HTMLElement {
 
   get showCaption() { return this._showCaption; }
   set showCaption(val) { this._showCaption = val; this._render(); }
-
-  // ------------------------------------------------------------
-  // PROPIEDAD: showNavigators
-  // ------------------------------------------------------------
-  // Muestra o esconde los botones anterior y siguiente.
-
-  get showNavigators() { return this._showNavigators; }
-  set showNavigators(val) { this._showNavigators = val; this._render(); }
 
   // ------------------------------------------------------------
   // PROPIEDAD: fullscreen
@@ -258,10 +248,6 @@ class GalleryComponent extends HTMLElement {
         break;
       case 'show-caption':
         this._showCaption = newVal === 'true';
-        if (this._mainImage) this._render();
-        break;
-      case 'show-navigators':
-        this._showNavigators = newVal !== 'false';
         if (this._mainImage) this._render();
         break;
       case 'fullscreen':
@@ -377,12 +363,6 @@ class GalleryComponent extends HTMLElement {
 
   // Muestra o esconde los botones de navegación y miniaturas
   _updateNavVisibility() {
-    const navPrev = this._navPrevBtn.closest('.gallery__nav');
-    const navNext = this._navNextBtn.closest('.gallery__nav');
-    this._navPrevBtn.classList.toggle('visible', this._showNavigators);
-    this._navNextBtn.classList.toggle('visible', this._showNavigators);
-    navPrev.style.display = this._showNavigators ? '' : 'none';
-    navNext.style.display = this._showNavigators ? '' : 'none';
     this.$('thumbnails').style.display = this._showThumbnails ? '' : 'none';
   }
 
