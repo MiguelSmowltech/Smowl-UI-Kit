@@ -3,128 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery Component — Documentación</title>
+  <title>Gallery Component — Demo</title>
   <script type="module" src="gallery.js"></script>
   <link rel="stylesheet" href="../../tokens.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      display: flex; min-height: 100vh;
-      background: #f0f0f5;
-      font-family: 'Montserrat', sans-serif;
-    }
-    :root {
-      /* Las variables CSS están en tokens.css */
-    }
+    body { display: flex; min-height: 100vh; background: #f0f0f5; font-family: 'Montserrat', sans-serif; }
+    :root {}
     .app { display: flex; width: 100%; }
-    .aside {
-      width: 300px; min-height: 100vh;
-      background: var(--color-neutral-0);
-      border-right: 1px solid var(--color-primary-100);
-      padding: 24px; overflow-y: auto; flex-shrink: 0;
-    }
-    .aside__title { font-size: 20px; font-weight: 600; color: var(--color-primary-700); margin-bottom: 4px; }
-    .aside__subtitle { font-size: 13px; color: var(--color-primary-600); margin-bottom: 24px; }
+    .aside { width: 300px; min-height: 100vh; background: var(--color-neutral-0, #fff); border-right: 1px solid var(--color-primary-100, #EBEBEE); padding: 24px; overflow-y: auto; flex-shrink: 0; }
+    .aside__title { font-size: 20px; font-weight: 600; color: var(--color-primary-700, #1C304B); margin-bottom: 4px; }
+    .aside__subtitle { font-size: 13px; color: var(--color-primary-600, #5C6573); margin-bottom: 24px; }
     .aside__group { margin-bottom: 20px; }
-    .aside__group-title { font-size: 12px; font-weight: 600; color: var(--color-primary-600); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .aside__group-title { font-size: 12px; font-weight: 600; color: var(--color-primary-600, #5C6573); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
     .toggle { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; }
-    .toggle__label { font-size: 14px; color: var(--color-primary-700); flex: 1; }
-    .switch {
-      width: 36px; height: 20px;
-      background: var(--color-primary-200);
-      border-radius: var(--radius-round); border: none; cursor: pointer;
-      position: relative; transition: background 0.2s; flex-shrink: 0;
-    }
-    .switch.active { background: var(--color-brand-500); }
-    .switch::after {
-      content: ''; position: absolute; top: 2px; left: 2px;
-      width: 16px; height: 16px;
-      background: white; border-radius: 50%;
-      transition: transform 0.2s;
-    }
+    .toggle__label { font-size: 14px; color: var(--color-primary-700, #1C304B); flex: 1; }
+    .switch { width: 36px; height: 20px; background: var(--color-primary-200, #E0E0E4); border-radius: 64px; border: none; cursor: pointer; position: relative; transition: background 0.2s; flex-shrink: 0; }
+    .switch.active { background: var(--color-brand-500, #0092D1); }
+    .switch::after { content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; background: white; border-radius: 50%; transition: transform 0.2s; }
     .switch.active::after { transform: translateX(16px); }
     .select-control { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; }
-    .select-control label { font-size: 14px; color: var(--color-primary-700); }
-    .select-control select {
-      padding: 4px 8px; border: 1px solid var(--color-primary-100);
-      border-radius: var(--radius-sm); font-family: inherit; font-size: 13px;
-      width: 80px; text-align: center;
-    }
-    .btn {
-      display: block; width: 100%; padding: 10px;
-      background: var(--color-brand-500); color: white;
-      border: none; border-radius: var(--radius-sm);
-      font-family: inherit; font-size: 14px; font-weight: 500;
-      cursor: pointer; transition: background 0.2s;
-    }
+    .select-control label { font-size: 14px; color: var(--color-primary-700, #1C304B); }
+    .select-control select { padding: 4px 8px; border: 1px solid var(--color-primary-100, #EBEBEE); border-radius: var(--radius-sm, 4px); font-family: inherit; font-size: 13px; width: 80px; text-align: center; }
+    .btn { display: block; width: 100%; padding: 10px; background: var(--color-brand-500, #0092D1); color: white; border: none; border-radius: var(--radius-sm, 4px); font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
     .btn:hover { background: #0078b3; }
-
-    main {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; padding: 40px;
-      overflow-y: auto;
-    }
-
+    main { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 40px; overflow-y: auto; }
+    .main-top { margin-bottom: 40px; }
     body.is-fullscreen .aside { display: none; }
     body.is-fullscreen main { padding: 0; }
-
-    /* ========== DOCS ========== */
-    .docs {
-      width: 100%; max-width: 1000px;
-      margin: 40px 0 80px;
-    }
-    .docs__title { font-size: 22px; font-weight: 600; color: var(--color-primary-700); margin-bottom: 8px; }
-    .docs__intro { font-size: 14px; color: var(--color-primary-600); margin-bottom: 32px; line-height: 1.6; }
-    .doc-section { margin-bottom: 48px; }
-    .doc-section__title { font-size: 18px; font-weight: 600; color: var(--color-primary-700); margin-bottom: 8px; }
-    .doc-section__desc { font-size: 14px; color: var(--color-primary-600); line-height: 1.6; margin-bottom: 16px; }
-    .doc-section__demo {
-      background: var(--color-neutral-0);
-      border: 1px solid var(--color-primary-100);
-      border-radius: var(--radius-md);
-      padding: 24px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .doc-section__code {
-      background: #1e1e2e; color: #cdd6f4;
-      font-family: 'SF Mono', 'Menlo', monospace;
-      font-size: 13px; line-height: 1.6;
-      padding: 16px 20px;
-      border-radius: var(--radius-md);
-      overflow-x: auto;
-      white-space: pre;
-      tab-size: 2;
-    }
-    .doc-section__code .cm { color: #6c7086; font-style: italic; }
-    .doc-section__code .kw { color: #cba6f7; }
-    .doc-section__code .str { color: #a6e3a1; }
-    .doc-section__code .tag { color: #89b4fa; }
-    .doc-section__code .attr { color: #f9e2af; }
-
-    table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 16px 0; }
-    th { text-align: left; padding: 8px 12px; border-bottom: 2px solid var(--color-primary-100); background: #f8f8fa; font-weight: 600; color: var(--color-primary-700); }
-    td { padding: 7px 12px; border-bottom: 1px solid var(--color-primary-100); color: var(--color-primary-700); }
-    td code { background: #f4f4f5; padding: 1px 5px; border-radius: 3px; font-size: 12px; color: var(--color-brand-500); }
-
-    @media (max-width: 900px) {
-      .app { flex-direction: column; }
-      .aside { width: 100%; min-height: auto; border-right: none; border-bottom: 1px solid var(--color-primary-100); }
-      main { padding: 20px; }
-    }
+    @media (max-width: 900px) { .app { flex-direction: column; } .aside { width: 100%; min-height: auto; } main { padding: 20px; } }
   </style>
 </head>
 <body>
   <div class="app">
-
-    <!-- ASIDE -->
     <aside class="aside">
       <div class="aside__title">Gallery</div>
       <div class="aside__subtitle">Web Component</div>
-
       <div class="aside__group">
         <div class="aside__group-title">Miniaturas</div>
         <div class="toggle">
@@ -132,7 +47,6 @@
           <button class="switch active" id="toggleThumbs" role="switch" aria-checked="true" aria-label="Mostrar miniaturas"></button>
         </div>
       </div>
-
       <div class="aside__group">
         <div class="aside__group-title">Tamaño</div>
         <div class="select-control">
@@ -144,7 +58,6 @@
           </select>
         </div>
       </div>
-
       <div class="aside__group">
         <div class="aside__group-title">Texto</div>
         <div class="toggle">
@@ -152,228 +65,15 @@
           <button class="switch" id="toggleCaption" role="switch" aria-checked="false" aria-label="Mostrar caption"></button>
         </div>
       </div>
-
-      <div class="aside__group" style="border-top:1px solid var(--color-primary-100);padding-top:16px;">
+      <div class="aside__group" style="border-top:1px solid var(--color-primary-100,#EBEBEE);padding-top:16px;">
         <button class="btn" id="btnFullscreen" aria-expanded="false">Pantalla completa</button>
       </div>
     </aside>
-
-    <!-- MAIN -->
     <main>
       <div class="main-top">
         <gallery-component id="gallery"></gallery-component>
       </div>
-
-      <!-- ========== DOCUMENTATION ========== -->
-      <section class="docs">
-
-        <p class="docs__intro">
-          Cada sección muestra una funcionalidad del componente
-          con un ejemplo en vivo y el código necesario.
-        </p>
-
-        <!-- IMPORT -->
-        <div class="doc-section">
-          <h2 class="doc-section__title">Import</h2>
-          <div class="doc-section__code"><span class="kw">import</span> <span class="str">'./gallery.js'</span>;</div>
-        </div>
-
-        <!-- BASIC -->
-        <div class="doc-section">
-          <h2 class="doc-section__title">Basic</h2>
-          <p class="doc-section__desc">
-            La galería necesita un array de imágenes y las etiquetas
-            <code>&lt;gallery-component&gt;</code>.
-            Cada imagen tiene una URL grande (<code>src</code>)
-            y una miniatura (<code>thumb</code>).
-          </p>
-          <div class="doc-section__demo">
-            <gallery-component id="demoBasic" style="width:640px;"></gallery-component>
-          </div>
-          <div class="doc-section__code"><span class="cm">&lt;!-- HTML --&gt;</span>
-&lt;<span class="tag">gallery-component</span> <span class="attr">id</span>=<span class="str">"gallery"</span>&gt;&lt;/<span class="tag">gallery-component</span>&gt;
-
-<span class="cm">&lt;!-- JavaScript --&gt;</span>
-<span class="kw">import</span> <span class="str">'./gallery.js'</span>;
-
-<span class="kw">const</span> gallery = document.getElementById(<span class="str">'gallery'</span>);
-gallery.images = [
-  { src: <span class="str">'foto.jpg'</span>, thumb: <span class="str">'thumb.jpg'</span>,
-    alt: <span class="str">'Descripción'</span> },
-  ...
-];</div>
-        </div>
-
-        <!-- THUMBNAILS -->
-        <div class="doc-section">
-          <h2 class="doc-section__title">Thumbnails</h2>
-          <p class="doc-section__desc">
-            Las miniaturas se muestran debajo de la imagen principal.
-            Se pueden ocultar con el atributo
-            <code>show-thumbnails="false"</code>.
-          </p>
-          <div class="doc-section__demo">
-            <gallery-component id="demoThumbs" show-thumbnails="false" style="width:640px;"></gallery-component>
-          </div>
-          <div class="doc-section__code"><span class="cm">&lt;!-- Sin miniaturas --&gt;</span>
-&lt;<span class="tag">gallery-component</span> <span class="attr">show-thumbnails</span>=<span class="str">"false"</span>&gt;
-&lt;/<span class="tag">gallery-component</span>&gt;
-
-<span class="cm">&lt;!-- Con miniaturas (por defecto) --&gt;</span>
-&lt;<span class="tag">gallery-component</span>&gt;&lt;/<span class="tag">gallery-component</span>&gt;</div>
-        </div>
-
-        <!-- CAPTION -->
-        <div class="doc-section">
-          <h2 class="doc-section__title">Caption</h2>
-          <p class="doc-section__desc">
-            Muestra un texto descriptivo sobre la imagen.
-            Se activa con <code>show-caption="true"</code>.
-            Los datos se pasan en <code>title</code> y <code>desc</code>
-            de cada imagen.
-          </p>
-          <div class="doc-section__demo">
-            <gallery-component id="demoCaption" show-caption="true" style="width:640px;"></gallery-component>
-          </div>
-          <div class="doc-section__code"><span class="cm">&lt;!-- Con caption --&gt;</span>
-&lt;<span class="tag">gallery-component</span> <span class="attr">show-caption</span>=<span class="str">"true"</span>&gt;
-&lt;/<span class="tag">gallery-component</span>&gt;
-
-<span class="cm">// Datos de ejemplo</span>
-{ src: <span class="str">'...'</span>, thumb: <span class="str">'...'</span>,
-  alt: <span class="str">'Montañas'</span>,
-  title: <span class="str">'Montañas'</span>,
-  desc: <span class="str">'Vista panorámica'</span> }</div>
-        </div>
-
-        <!-- FULLSCREEN -->
-        <div class="doc-section">
-          <h2 class="doc-section__title">Fullscreen</h2>
-          <p class="doc-section__desc">
-            La galería se puede poner a pantalla completa.
-            Se controla con la propiedad <code>fullscreen</code>.
-            También funciona con doble clic en la imagen
-            o con la tecla <kbd>F</kbd>.
-          </p>
-          <div class="doc-section__demo" style="flex-direction:column;gap:12px;">
-            <gallery-component id="demoFS" style="width:640px;"></gallery-component>
-            <button onclick="document.getElementById('demoFS').fullscreen = !document.getElementById('demoFS').fullscreen"
-              style="padding:8px 20px;background:var(--color-brand-500);color:white;border:none;border-radius:var(--radius-sm);font-family:inherit;font-size:14px;cursor:pointer;">
-              Abrir pantalla completa
-            </button>
-          </div>
-          <div class="doc-section__code"><span class="cm">// JavaScript</span>
-gallery.fullscreen = <span class="kw">true</span>;   <span class="cm">// Abrir</span>
-gallery.fullscreen = <span class="kw">false</span>;  <span class="cm">// Cerrar</span>
-
-<span class="cm">// Eventos</span>
-gallery.addEventListener(<span class="str">'fullscreen-toggle'</span>, () => {
-  <span class="cm">// Se dispara con doble clic en la imagen</span>
-});</div>
-        </div>
-
-        <!-- RESPONSIVE -->
-        <div class="doc-section">
-          <h2 class="doc-section__title">Responsive</h2>
-          <p class="doc-section__desc">
-            El componente tiene 3 tamaños predefinidos
-            que se controlan con el atributo
-            <code>viewport</code>.
-          </p>
-          <table>
-            <thead><tr><th>Valor</th><th>Ancho</th><th>Alto imagen</th></tr></thead>
-            <tbody>
-              <tr><td><code>large</code></td><td>1000px</td><td>440px</td></tr>
-              <tr><td><code>medium</code></td><td>803px</td><td>342px</td></tr>
-              <tr><td><code>small</code></td><td>640px</td><td>274px</td></tr>
-            </tbody>
-          </table>
-          <div class="doc-section__code"><span class="cm">&lt;!-- Tamaños --&gt;</span>
-&lt;<span class="tag">gallery-component</span> <span class="attr">viewport</span>=<span class="str">"large"</span>&gt;&lt;/<span class="tag">gallery-component</span>&gt;
-&lt;<span class="tag">gallery-component</span> <span class="attr">viewport</span>=<span class="str">"medium"</span>&gt;&lt;/<span class="tag">gallery-component</span>&gt;
-&lt;<span class="tag">gallery-component</span> <span class="attr">viewport</span>=<span class="str">"small"</span>&gt;&lt;/<span class="tag">gallery-component</span>&gt;
-
-<span class="cm">// JavaScript</span>
-gallery.viewport = <span class="str">'large'</span>;</div>
-        </div>
-
-        <!-- PROPS TABLE -->
-        <div class="doc-section">
-          <h2 class="doc-section__title">API — Propiedades</h2>
-          <table>
-            <thead><tr><th>Propiedad</th><th>Atributo</th><th>Tipo</th><th>Descripción</th></tr></thead>
-            <tbody>
-              <tr><td><code>.images</code></td><td>—</td><td><code>Array</code></td><td>Array de objetos <code>{ src, thumb, alt, title?, desc?, error? }</code></td></tr>
-              <tr><td><code>.activeIndex</code></td><td>—</td><td><code>Number</code></td><td>Índice de la imagen activa</td></tr>
-              <tr><td><code>.fullscreen</code></td><td><code>fullscreen</code></td><td><code>Boolean</code></td><td>Abre/cierra pantalla completa</td></tr>
-              <tr><td><code>.viewport</code></td><td><code>viewport</code></td><td><code>String</code></td><td><code>large</code> / <code>medium</code> / <code>small</code></td></tr>
-              <tr><td><code>.showThumbnails</code></td><td><code>show-thumbnails</code></td><td><code>Boolean</code></td><td>Muestra/oculta miniaturas</td></tr>
-              <tr><td><code>.showCaption</code></td><td><code>show-caption</code></td><td><code>Boolean</code></td><td>Muestra/oculta caption</td></tr>
-              <tr><td><code>.showNavigators</code></td><td><code>show-navigators</code></td><td><code>Boolean</code></td><td>Muestra/oculta botones navegación</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- EVENTS -->
-        <div class="doc-section">
-          <h2 class="doc-section__title">API — Eventos</h2>
-          <table>
-            <thead><tr><th>Evento</th><th>Detalle</th><th>Descripción</th></tr></thead>
-            <tbody>
-              <tr><td><code>slide-change</code></td><td><code>{ index }</code></td><td>Se dispara al cambiar de imagen</td></tr>
-              <tr><td><code>fullscreen-toggle</code></td><td><code>{ }</code></td><td>Se dispara al hacer doble clic en la imagen</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- CSS PARTS -->
-        <div class="doc-section">
-          <h2 class="doc-section__title">API — CSS Parts</h2>
-          <p class="doc-section__desc">
-            Para personalizar los estilos desde fuera del Shadow DOM
-            usa el pseudoelemento <code>::part()</code>.
-          </p>
-          <div class="doc-section__code"><span class="cm">/* Personalizar desde tu CSS */</span>
-<span class="tag">gallery-component</span>::<span class="attr">part</span>(container)  { border-radius: 8px; }
-<span class="tag">gallery-component</span>::<span class="attr">part</span>(image)      { object-fit: contain; }
-<span class="tag">gallery-component</span>::<span class="attr">part</span>(thumbnails) { background: #fff; }
-<span class="tag">gallery-component</span>::<span class="attr">part</span>(caption)    { color: #fff; }</div>
-          <table>
-            <thead><tr><th>Part</th><th>Elemento</th></tr></thead>
-            <tbody>
-              <tr><td><code>container</code></td><td>La galería entera</td></tr>
-              <tr><td><code>slide</code></td><td>Área de la imagen principal</td></tr>
-              <tr><td><code>image</code></td><td>La imagen grande</td></tr>
-              <tr><td><code>caption</code></td><td>El texto sobre la imagen</td></tr>
-              <tr><td><code>thumbnails</code></td><td>La tira de miniaturas</td></tr>
-              <tr><td><code>prev-btn</code></td><td>Botón anterior</td></tr>
-              <tr><td><code>next-btn</code></td><td>Botón siguiente</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- ACCESSIBILITY -->
-        <div class="doc-section">
-          <h2 class="doc-section__title">Accesibilidad</h2>
-          <p class="doc-section__desc">
-            El componente sigue el patrón de carrusel accesible:
-          </p>
-          <table>
-            <thead><tr><th>Qué</th><th>Cómo</th></tr></thead>
-            <tbody>
-              <tr><td>Landmark</td><td><code>role="region"</code> + <code>aria-roledescription="carousel"</code></td></tr>
-              <tr><td>Slide actual</td><td><code>role="group"</code> + <code>aria-roledescription="slide"</code> + <code>aria-live="polite"</code></td></tr>
-              <tr><td>Miniaturas</td><td><code>role="tablist"</code> / <code>role="tab"</code> + <code>aria-selected</code></td></tr>
-              <tr><td>Navegación teclado</td><td><kbd>←</kbd> <kbd>→</kbd> anterior/siguiente, <kbd>Tab</kbd> miniaturas, <kbd>F</kbd> fullscreen, <kbd>Esc</kbd> cerrar</td></tr>
-              <tr><td>Fullscreen</td><td><code>role="dialog"</code> + <code>aria-modal="true"</code></td></tr>
-              <tr><td>SVGs</td><td><code>aria-hidden="true"</code> + <code>focusable="false"</code></td></tr>
-            </tbody>
-          </table>
-        </div>
-
-      </section>
     </main>
-
   </div>
 
   <script type="module">
@@ -388,17 +88,9 @@ gallery.viewport = <span class="str">'large'</span>;</div>
       { src: 'https://picsum.photos/608/342?random=16', thumb: 'https://picsum.photos/160/90?random=16', alt: 'Arte urbano', title: 'Arte', desc: 'Mural callejero' },
     ];
 
-    // Main gallery
     const gallery = document.getElementById('gallery');
     gallery.images = images;
 
-    // Demo galleries
-    document.getElementById('demoBasic').images = images.slice(0, 3);
-    document.getElementById('demoThumbs').images = images.slice(0, 3);
-    document.getElementById('demoCaption').images = images.slice(0, 3);
-    document.getElementById('demoFS').images = images.slice(0, 3);
-
-    // Fullscreen
     function toggleFullscreen() {
       const isOn = !gallery.fullscreen;
       gallery.fullscreen = isOn;
@@ -416,7 +108,6 @@ gallery.viewport = <span class="str">'large'</span>;</div>
       if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggleFullscreen(); }
     });
 
-    // Aside controls
     function setupToggle(id, prop) {
       const btn = document.getElementById(id);
       btn.addEventListener('click', () => {
