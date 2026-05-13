@@ -525,19 +525,19 @@ class GalleryComponent extends HTMLElement {
     switch (name) {
       case 'viewport':
         this._viewport = newVal || 'medium';
-        this._applyViewport();
+        if (this._mainImage) this._applyViewport();
         break;
       case 'show-thumbnails':
         this._showThumbnails = newVal !== 'false';
-        this._render();
+        if (this._mainImage) this._render();
         break;
       case 'show-caption':
         this._showCaption = newVal === 'true';
-        this._render();
+        if (this._mainImage) this._render();
         break;
       case 'show-navigators':
         this._showNavigators = newVal !== 'false';
-        this._render();
+        if (this._mainImage) this._render();
         break;
       case 'fullscreen':
         break;
