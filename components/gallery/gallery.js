@@ -221,10 +221,7 @@ template.innerHTML = `
     gap: 10px;
     padding: var(--spacing-2xs);
     background: var(--color-neutral-0);
-    border-top: 1px solid var(--border-secondary, var(--color-primary-100));
-    border-left: 0;
-    border-right: 0;
-    border-bottom: 0;
+    border: 1px solid var(--border-secondary, var(--color-primary-100));
     border-radius: 0 0 var(--radius-md) var(--radius-md);
   }
 
