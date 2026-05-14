@@ -104,7 +104,6 @@
     align-self: stretch;
   }
 
-  :host([fullscreen]) .gallery__nav-btn { opacity: 1; }
   :host([fullscreen]) .gallery__nav--prev { left: 0; padding: 10px; }
   :host([fullscreen]) .gallery__nav--next { right: 0; padding: 10px; }
 
@@ -189,11 +188,9 @@
     transition: opacity 0.2s, transform 0.15s;
     padding: 8px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    opacity: 0;  /* Se ven solo al pasar el ratón */
+    opacity: 1;
   }
 
-  .gallery__main:hover .gallery__nav-btn { opacity: 1; }
-  .gallery__nav-btn.visible { opacity: 1; }
   .gallery__nav-btn:hover { opacity: 0.85; transform: scale(1.05); }
   .gallery__nav-btn:focus-visible { outline: 2px solid var(--color-brand-500); outline-offset: 2px; }
   .gallery__nav-btn svg { width: 24px; height: 24px; fill: var(--color-primary-700); }
